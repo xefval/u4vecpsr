@@ -1,0 +1,16 @@
+header {
+  position: relative;
+}
+
+/* Larger than mobile screen */
+@media (min-width: 40.0rem) {
+  .buttons {
+    position: absolute;
+    top: 0.6rem;
+    right: 0;
+  }
+}
+
+button {
+  margin: 0 0 0 0.5rem;
+}
