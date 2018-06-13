@@ -4,10 +4,12 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { LogoComponent } from './logo/logo.component';
+import { Router, RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   declarations: [HeaderComponent, FooterComponent, BreadcrumbsComponent, LogoComponent],
   exports: [HeaderComponent, FooterComponent, BreadcrumbsComponent]

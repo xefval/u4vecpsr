@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { UsersModule } from './users/users.module';
+import { VideoListModule } from './video-list/video-list.module';
+import { RouterModule } from '@angular/router';
+import { ROUTES } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -10,7 +14,10 @@ import { CoreModule } from './core/core.module';
   ],
   imports: [
     BrowserModule,
-    CoreModule
+    CoreModule,
+    RouterModule.forRoot(ROUTES),
+    UsersModule,
+    VideoListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
