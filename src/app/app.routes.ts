@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 import { LoginComponent } from './users/login/login.component';
-import { VideoListComponent } from './video-list/video-list/video-list.component';
+import { CoursesListComponent } from './courses/courses-list/courses-list.component';
 
 export const ROUTES: Route[] = [
-  { path: 'list', component: VideoListComponent },
+  { path: 'list', component: CoursesListComponent },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/list', pathMatch: 'full' }
 ]; 

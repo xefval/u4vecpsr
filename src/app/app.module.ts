@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { UsersModule } from './users/users.module';
-import { VideoListModule } from './video-list/video-list.module';
+import { CoursesModule } from './courses/courses.module';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 
@@ -17,7 +17,7 @@ import { ROUTES } from './app.routes';
     CoreModule,
     RouterModule.forRoot(ROUTES),
     UsersModule,
-    VideoListModule
+    CoursesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
