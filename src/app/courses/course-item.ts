@@ -1,4 +1,6 @@
-class Course {
+import { Course } from './course.model';
+
+export class CourseItem implements Course {
   id: number;
   title: string;
   description: string;

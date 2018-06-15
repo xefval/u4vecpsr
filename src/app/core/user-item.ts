@@ -1,4 +1,6 @@
-class User {
+import { User } from './user.model';
+
+export class UserItem implements User {
   id: number;
   firstName: string;
   lastName: string;
