@@ -1,0 +1,10 @@
+img.logo {
+  height: 4.6rem;
+  position: absolute;
+  top: 0.4rem;
+}
+
+h1 {
+  display: inline;
+  margin-left: 7rem;
+}
