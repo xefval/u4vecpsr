@@ -1,0 +1,23 @@
+.button.sm {
+  line-height: 1.2rem;
+  margin: 0 0.2rem;
+  padding: 0 0.5rem;
+  height: 2rem;
+  width: 10rem;
+}
+
+.align-right {
+ text-align: right;
+}
+
+.min-duration {
+  margin-right: 2rem;
+}
+
+.creation-date {
+  font-size: 0.8em;
+}
+
+.course-item {
+  margin: 0.5rem 0;
+}
