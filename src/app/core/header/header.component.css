@@ -1,3 +1,7 @@
+header {
+  padding: 1rem 0 0 0;
+}
+
 button {
   line-height: 1.9rem;
   margin: 1rem 0.3rem 0;
@@ -5,6 +9,11 @@ button {
   width: 10rem;
 }
 
-.column-40 {
+.controls {
   text-align: right;
+}
+
+app-logo {
+  display: block;
+  position: relative;
 }

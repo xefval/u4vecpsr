@@ -1,2 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/milligram/dist/milligram.css"
+@import "../node_modules/milligram/dist/milligram.css";
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
