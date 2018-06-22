@@ -1,0 +1,19 @@
+header {
+  padding: 1rem 0 0 0;
+}
+
+button {
+  line-height: 1.9rem;
+  margin: 1rem 0.3rem 0;
+  padding: 1rem;
+  width: 10rem;
+}
+
+.controls {
+  text-align: right;
+}
+
+app-logo {
+  display: block;
+  position: relative;
+}
