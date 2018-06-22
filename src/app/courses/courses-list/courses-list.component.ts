@@ -7,8 +7,20 @@ import { COURSE_ITEMS } from '../mock-courses';
   styleUrls: ['./courses-list.component.css']
 })
 export class CoursesListComponent implements OnInit {
+  searchString: string;
   courses = COURSE_ITEMS;
-  constructor() { }
+  findCourse(text: string): void {
+    console.log('Find couse click' + text);
+  }
+  addCourse(): void {
+    console.log('Add course click');
+  }
+  deleteCourse(id: number): void {
+    console.log('Delete course ' + id.toString() + ' click');
+  }
+  constructor() {
+    this.searchString = '';
+  }
 
   ngOnInit() {
   }
