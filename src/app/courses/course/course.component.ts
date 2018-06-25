@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
+import { CourseItem } from '../course-item';
 
 @Component({
   selector: 'app-course',
@@ -6,18 +7,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
-  @Input() id: number;
-  @Input() description: string;
-  @Input() creationDate: Date;
-  @Input() minDuration: number;
-  @Input() title: string;
-  @Output() deleteCourse: EventEmitter<number> = new EventEmitter<number>();
-  delete(id): void {
-    this.deleteCourse.emit(id);
+  @Input() course: CourseItem;
+  @Output() edit: EventEmitter<number> = new EventEmitter<number>();
+  @Output() delete: EventEmitter<number> = new EventEmitter<number>();
+  editCourse(): void {
+    this.edit.emit();
+  }
+  deleteCourse(): void {
+    this.delete.emit();
   }
   constructor() { }
 
   ngOnInit() {
   }
-
 }

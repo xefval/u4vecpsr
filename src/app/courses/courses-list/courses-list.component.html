@@ -1,18 +1,11 @@
 <section class="container">
-  <div class="container">
-    <div class="row">
-      <div class="column column-30">
-        <input type="text" [(ngModel)]="searchString" (keyup.enter)="findCourse(searchString)" placeholder="Name, fragment or date">
-      </div>
-      <div class="column column-20">
-        <button class="button button-outline" (click)="findCourse(searchString)">Search</button>
-      </div>
-      <div class="column column-20 column-offset-30 align-right">
-        <button class="button" (click)="addCourse()">Add course</button>
-      </div>
-    </div>
+  <div class="toolbar">
+    <input class="search" type="text" [(ngModel)]="searchString" (keyup.enter)="findCourse(searchString)" placeholder="Name, fragment or date">
+    <button class="button button-outline" (click)="findCourse(searchString)">Search</button>
+    <button class="button add" (click)="addCourse()"><svg><use xlink:href='#icon-add'/></svg> Add course</button>
   </div>
   <div>
-    <app-course *ngFor="let course of courses" [title]="course.title" [minDuration]="course.minDuration" [creationDate]="course.creationDate" [description]="course.description"></app-course>
+    <app-course *ngFor="let course of courses; let i = index" [course]="course" (edit)="editCourse(course)" (delete)="deleteCourse(i)"></app-course>
   </div>
+  <button class="load-more button button-outline" (click)="loadMore()">Load more</button>
 </section>

@@ -5,6 +5,10 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  min-width: 500px;
+}
+
 *,
 *:before,
 *:after {
@@ -22,6 +26,10 @@ p {
   margin: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 .wrapper {
-  min-height: calc(100vh - 4rem - 6px);
+  min-height: calc(100vh - 4rem);
 }
