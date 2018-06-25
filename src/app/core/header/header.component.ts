@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit, OnChanges, AfterContentInit, Aft
   constructor() { }
   ngOnInit() {
   }
+  // TODO: remove it in next task
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
   }
