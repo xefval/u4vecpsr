@@ -12,9 +12,8 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [
     CoursesListComponent,
-    CoursesListComponent,
     VideoDirationPipe,
-    CourseComponent
+    CourseComponent,
   ]
 })
 export class CoursesModule { }

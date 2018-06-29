@@ -11,7 +11,7 @@ export class CoursesListComponent implements OnInit {
   searchString: string;
   courses: CourseItem[];
   findCourse(text: string): void {
-    console.log('Find course click' + text);
+    console.log(text);
   }
   addCourse(): void {
     console.log('Add course click');
