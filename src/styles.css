@@ -5,18 +5,31 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  min-width: 500px;
+}
+
 *,
 *:before,
 *:after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
 }
 
-body {
+header, footer {
+  display: block;
   margin: 0;
 }
 
 p {
   margin: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.wrapper {
+  min-height: calc(100vh - 4rem);
 }

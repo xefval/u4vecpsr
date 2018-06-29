@@ -1,38 +1,11 @@
 <section class="container">
-  <h2>Courses</h2>
-  <div class="container"><!-- TODO: move to toolbar component? -->
-    <div class="row">
-      <div class="column column-30">
-        <input type="text" placeholder="Name, fragment or date">
-      </div>
-      <div class="column column-20">
-        <button class="button button-outline">Search</button>
-      </div>
-      <div class="column column-20 column-offset-30 align-right">
-        <button class="button">Add course</button>
-      </div>
-    </div>
+  <div class="toolbar">
+    <input class="search" type="text" [(ngModel)]="searchString" (keyup.enter)="findCourse(searchString)" placeholder="Name, fragment or date">
+    <button class="button button-outline search" (click)="findCourse(searchString)">Search</button>
+    <button class="button add" (click)="addCourse()"><svg><use xlink:href='#icon-add'/></svg> Add course</button>
   </div>
-  <div><!-- TODO: move to list component? -->
-    <div class="container course-item" *ngFor="let course of courses"><!-- TODO: move to couse-list-item component -->
-      <div class="row">
-        <div class="column column-40">
-          <h3>{{course.title}}</h3>
-        </div>
-        <div class="column column-40">
-          <span class="min-duration">{{course.minDuration}} minutes</span>
-          <span class="creation-date">{{course.creationDate.toString()}}</span>
-        </div>
-        <div class="column column-20 align-right">
-          <button class="button button-outline sm">Edit</button>
-          <button class="button button-outline sm">Delete</button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="column column-100">
-          {{course.description}}
-        </div>
-      </div>
-    </div>
+  <div>
+    <app-course *ngFor="let course of courses; let i = index" [course]="course" (edit)="editCourse(course)" (delete)="deleteCourse(i)"></app-course>
   </div>
+  <button class="button button-outline load-more" (click)="loadMore()">Load more</button>
 </section>
