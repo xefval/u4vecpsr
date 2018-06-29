@@ -1,20 +1,26 @@
 .toolbar {
   padding: 0 13rem 0 0;
-  position: relative; }
-  .toolbar .search {
-    margin: 0 0.5rem 0 0;
-    width: 30%; }
-  .toolbar .add {
-    position: absolute;
-    right: 0.5rem;
-    width: 12rem;
-    padding: 0 0.3rem; }
-    .toolbar .add svg {
-      height: 1em;
-      width: 1em;
-      fill: #FFF; }
+  position: relative;
+}
+
+.toolbar .search {
+  margin: 0 0.5rem 0 0;
+  width: 30%;
+}
+
+.toolbar .add {
+  position: absolute;
+  right: 0.5rem;
+  width: 12rem;
+  padding: 0 0.3rem;
+}
+
+.toolbar .add svg {
+  height: 1em;
+  width: 1em;
+  fill: #FFF;
+}
 
 .load-more {
-  width: 100%; }
-
-/*# sourceMappingURL=courses-list.component.css.map */
+  width: 100%;
+}
