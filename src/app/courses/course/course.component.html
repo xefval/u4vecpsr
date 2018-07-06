@@ -1,0 +1,14 @@
+<div class="course-item">
+  <h3>{{course.title}} <span>{{ course.minDuration | videoDiration:"h m" }} {{ course.creationDate | date:"dd.MM.yyyy" }}</span></h3>
+  {{course.description}}
+  <div class="buttons">
+    <button class="button button-outline sm" (click)="editCourse(id)">
+      <svg><use xlink:href='#icon-edit'/></svg>
+      Edit
+    </button>
+    <button class="button button-outline sm" (click)="deleteCourse(id)">
+      <svg><use xlink:href='#icon-delete'/></svg>
+      Delete
+    </button>
+  </div>
+</div>
