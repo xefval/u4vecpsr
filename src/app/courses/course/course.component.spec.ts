@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CourseComponent } from './course.component';
 import { Component } from '@angular/core';
-import { VideoDirationPipe } from '../video-duration.pipe';
+import { VideoDurationPipe } from '../video-duration.pipe';
 
 @Component({
   template: `<app-course [course]="course" (edit)="editCourse(1)" (delete)="deleteCourse(2)"></app-course>`

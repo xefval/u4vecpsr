@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'videoDiration'})
-export class VideoDirationPipe implements PipeTransform {
+@Pipe({name: 'videoDuration'})
+export class VideoDurationPipe implements PipeTransform {
   transform(value: string, format: string): string {
     const timeSpan = parseInt(value, 10);
     const hour = Math.floor(timeSpan / 60);
