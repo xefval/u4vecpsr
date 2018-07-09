@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { COURSE_ITEMS } from '../mock-courses';
 import { CourseItem } from '../course-item';
+import { FilterCoursesPipe } from '../filter-courses.pipe';
 
 @Component({
   selector: 'app-courses-list',
@@ -10,28 +11,36 @@ import { CourseItem } from '../course-item';
 export class CoursesListComponent implements OnInit {
   searchString: string;
   courses: CourseItem[];
-  findCourse(text: string): void {
-    console.log(text);
-  }
-  addCourse(): void {
-    console.log('Add course click');
-  }
-  editCourse(course: CourseItem) {
-    console.log('Edit', course);
-  }
-  deleteCourse(id: number): void {
-    console.log('Delete course ' + id.toString() + ' click');
-  }
-  loadMore() {
-    console.log('Load more button click');
-  }
+  visibleCourses: CourseItem[];
+  private filterCourses: FilterCoursesPipe = new FilterCoursesPipe();
+
   constructor() {
-    this.courses = [];
+    this.visibleCourses = this.courses = [];
     this.searchString = '';
   }
 
   ngOnInit() {
-    this.courses = COURSE_ITEMS;
+    this.visibleCourses = this.courses = COURSE_ITEMS;
+  }
+
+  findCourse(text: string): void {
+    this.visibleCourses = this.filterCourses.transform(this.courses, text);
+  }
+
+  addCourse(): void {
+    console.log('Add course click');
+  }
+
+  editCourse(course: CourseItem) {
+    console.log('Edit', course);
+  }
+
+  deleteCourse(id: number): void {
+    console.log('Delete course ' + id.toString() + ' click');
+  }
+
+  loadMore() {
+    console.log('Load more button click');
   }
 
 }

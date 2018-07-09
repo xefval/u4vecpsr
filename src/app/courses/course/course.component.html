@@ -1,13 +1,16 @@
-<div class="course-item">
-  <h3>{{course.title}} <span><!-- {{ course.minDuration | videoDiration:"h m" }} --> {{ course.creationDate | date:"dd.MM.yyyy" }}</span></h3>
+<div class="course-item" [ngClass]="{ 'top-rated': course.topRated }" [appCourseBorder]="course.creationDate">
+  <h3>{{course.title | uppercase }}
+    <span class="star"><svg><use xlink:href='./assets/img/sprites.svg#icon-star'/></svg></span>
+    <span class="duration-creation">{{ course.minDuration | videoDuration:"h m" }} {{ course.creationDate | date:"dd.MM.yyyy" }}</span>
+  </h3>
   {{course.description}}
   <div class="buttons">
     <button class="button button-outline sm edit" (click)="editCourse(id)">
-      <svg><use xlink:href='#icon-edit'/></svg>
+      <svg><use xlink:href='./assets/img/sprites.svg#icon-edit'/></svg>
       Edit
     </button>
     <button class="button button-outline sm delete" (click)="deleteCourse(id)">
-      <svg><use xlink:href='#icon-delete'/></svg>
+      <svg><use xlink:href='./assets/img/sprites.svg#icon-delete'/></svg>
       Delete
     </button>
   </div>
