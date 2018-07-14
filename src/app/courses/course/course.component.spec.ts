@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CourseComponent } from './course.component';
-import { Component } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CourseBorderDirective } from '../course-border.directive';
 import { VideoDurationPipe } from '../video-duration.pipe';
 
 @Component({
@@ -20,7 +21,7 @@ describe('CourseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CourseComponent ]
+      declarations: [ VideoDurationPipe, CourseBorderDirective, CourseComponent ]
     })
     .compileComponents();
   }));
@@ -41,7 +42,8 @@ describe('CourseComponent events', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CourseComponent, TestListComponent ]
+      declarations: [ CourseBorderDirective, VideoDurationPipe, CourseComponent, TestListComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

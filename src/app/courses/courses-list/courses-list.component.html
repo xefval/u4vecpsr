@@ -2,10 +2,11 @@
   <div class="toolbar">
     <input class="search" type="text" [(ngModel)]="searchString" (keyup.enter)="findCourse(searchString)" placeholder="Name, fragment or date">
     <button class="button button-outline search" (click)="findCourse(searchString)">Search</button>
-    <button class="button add" (click)="addCourse()"><svg><use xlink:href='#icon-add'/></svg> Add course</button>
+    <button class="button add" (click)="addCourse()"><svg><use xlink:href='./assets/img/sprites.svg#icon-add'/></svg> Add course</button>
   </div>
   <div>
-    <app-course *ngFor="let course of courses; let i = index" [course]="course" (edit)="editCourse(course)" (delete)="deleteCourse(i)"></app-course>
+    <app-course *ngFor="let course of visibleCourses | orderBy:'creationDate':'dsc'; let i = index" [course]="course" (edit)="editCourse(course)" (delete)="deleteCourse(i)"></app-course>
+    <div class="no-data" *ngIf="visibleCourses.length === 0">No data. Feel free to add new course.</div>
   </div>
-  <button class="button button-outline load-more" (click)="loadMore()">Load more</button>
+  <button class="button button-outline load-more" (click)="loadMore()" *ngIf="visibleCourses.length > 0">Load more</button>
 </section>

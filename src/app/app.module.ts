@@ -8,6 +8,7 @@ import { CoursesModule } from './courses/courses.module';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 
+
 @NgModule({
   declarations: [
     AppComponent
