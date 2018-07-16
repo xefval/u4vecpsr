@@ -1,4 +1,4 @@
-<div class="course-item" [ngClass]="{ 'top-rated': course.topRated }" [appCourseBorder]="course.creationDate">
+<!-- <div class="course-item" [ngClass]="{ 'top-rated': course.topRated }" [appCourseBorder]="course.creationDate">
   <h3>{{course.title | uppercase }}
     <span class="star"><svg><use xlink:href='./assets/img/sprites.svg#icon-star'/></svg></span>
     <span class="duration-creation">{{ course.minDuration | videoDuration:"h m" }} {{ course.creationDate | date:"dd.MM.yyyy" }}</span>
@@ -13,5 +13,18 @@
       <svg><use xlink:href='./assets/img/sprites.svg#icon-delete'/></svg>
       Delete
     </button>
+  </div>
+</div> -->
+
+<div class="card" [ngClass]="{ 'top-rated': course.topRated }" [appCourseBorder]="course.creationDate">
+  <div class="card-header">
+    {{course.title | uppercase }} <span class="star"><svg><use xlink:href='./assets/img/sprites.svg#icon-star'/></svg></span>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ course.minDuration | videoDuration:"h m" }} {{ course.creationDate | date:"dd.MM.yyyy" }}</h5>
+    <p class="card-text">{{course.description}}</p>
+    <button class="btn btn-outline-primary"><svg><use xlink:href='./assets/img/sprites.svg#icon-edit'/></svg> Edit</button>
+    
+    <button class="btn btn-outline-danger"><svg><use xlink:href='./assets/img/sprites.svg#icon-delete'/></svg> Delete</button>
   </div>
 </div>

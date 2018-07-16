@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../courses-provider.service';
 import { CourseItem } from '../course-item';
 import { FilterCoursesPipe } from '../filter-courses.pipe';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DlgConfirmComponent } from '../dlg-confirm/dlg-confirm.component';
 
 @Component({
   selector: 'app-courses-list',
@@ -15,7 +17,7 @@ export class CoursesListComponent implements OnInit {
   private filterCourses: FilterCoursesPipe = new FilterCoursesPipe();
   private updateList = () => this.visibleCourses = this.courses = this.coursesService.getCoursesList();
 
-  constructor(private coursesService: CoursesService) {
+  constructor(private coursesService: CoursesService, private modalService: NgbModal) {
     this.visibleCourses = this.courses = [];
     this.searchString = '';
   }
@@ -37,6 +39,9 @@ export class CoursesListComponent implements OnInit {
   }
 
   deleteCourse(id: number): void {
+    const modalRef = this.modalService.open(DlgConfirmComponent);
+    modalRef.componentInstance.msg = 'World';
+
     if (confirm('Do you really want to delete this course?')) {
       this.coursesService.removeCourse(id);
       this.updateList();

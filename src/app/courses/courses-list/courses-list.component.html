@@ -1,12 +1,21 @@
-<section class="container">
-  <div class="toolbar">
-    <input class="search" type="text" [(ngModel)]="searchString" (keyup.enter)="findCourse(searchString)" placeholder="Name, fragment or date">
-    <button class="button button-outline search" (click)="findCourse(searchString)">Search</button>
-    <button class="button add" (click)="addCourse()"><svg><use xlink:href='./assets/img/sprites.svg#icon-add'/></svg> Add course</button>
+<div class="container">
+  
+  <div class="row">
+    <div class="form-group col-md-7">
+      <input class="form-control search" type="text" [(ngModel)]="searchString" (keyup.enter)="findCourse(searchString)" placeholder="Name, fragment or date">
+    </div>
+    <div class="form-group col-md-2">
+      <button class="btn btn-outline-secondary w-100 search" type="button" (click)="findCourse(searchString)">Search</button>
+    </div>
+    <div class="form-group col-md-3">
+      <button class="btn btn-outline-secondary w-100 add" type="button" (click)="addCourse()"><svg><use xlink:href='./assets/img/sprites.svg#icon-add'/></svg> Add course</button>
+    </div>
   </div>
-  <div>
+
+  <div class="container">
     <app-course *ngFor="let course of visibleCourses | orderBy:'creationDate':'dsc'; let i = index" [course]="course" (edit)="editCourse(course)" (delete)="deleteCourse(course.id)"></app-course>
     <div class="no-data" *ngIf="visibleCourses.length === 0">No data. Feel free to add new course.</div>
+    <button type="button" class="btn btn-outline-primary load-more w-100" (click)="loadMore()" *ngIf="visibleCourses.length > 0">Load more</button>
   </div>
-  <button class="button button-outline load-more" (click)="loadMore()" *ngIf="visibleCourses.length > 0">Load more</button>
-</section>
+
+</div>

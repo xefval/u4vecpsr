@@ -1,64 +1,77 @@
-.course-item {
-  background: linear-gradient(to bottom right, transparent 60%, #ebebeb);
+/* .course-item {
+  background: linear-gradient(to bottom right, transparent 60%, lighten(#d1d1d1, 10%));
   border: 2px solid #d1d1d1;
   border-radius: 0.5rem;
   padding: 0.5rem 14rem 0.5rem 0.5rem;
   position: relative;
   margin-bottom: 0.5rem;
+
+  .star {    
+    border-left: 2px solid #606c76;
+    display: none;
+    font-size: 90%;
+    padding-left: 0.8rem;
+
+    svg {
+      fill: #cab34d;
+      height: 2rem;
+      width: 2rem;
+
+      &:hover {
+        fill: #606c76;
+      }
+    }
+  }
+
+  &.fresh {
+    border-color: #7dca4d;
+  }
+
+  &.upcomming {
+    border-color: #5b4dca;
+  }
+
+  &.top-rated {
+    background: linear-gradient(to bottom right, transparent 60%, lighten(#cab34d, 25%));
+
+    .star {
+      display: inline;
+    }
+  }
+
+  h3 {
+    position: relative;
+    padding-right: 20%;
+    margin: 0;
+
+    .duration-creation {
+      font-size: 1.4rem;
+      position: absolute;
+      top: 0.7rem;
+      right: 0;
+      text-align: right;
+      width: 20%;
+    }
+  }
+
+  .buttons {
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+    width: 12rem;
+
+    button {
+      height: 3rem;
+      line-height: normal;
+      margin: 0.25rem 0;
+      width: 100%;
+
+      svg {
+        fill: #9b4dca;
+        height: 1em;
+        width: 1em;
+      }
+    }
+  }
 }
-.course-item .star {
-  border-left: 2px solid #606c76;
-  display: none;
-  font-size: 90%;
-  padding-left: 0.8rem;
-}
-.course-item .star svg {
-  fill: #cab34d;
-  height: 2rem;
-  width: 2rem;
-}
-.course-item .star svg:hover {
-  fill: #606c76;
-}
-.course-item.fresh {
-  border-color: #7dca4d;
-}
-.course-item.upcomming {
-  border-color: #5b4dca;
-}
-.course-item.top-rated {
-  background: linear-gradient(to bottom right, transparent 60%, #e7ddaf);
-}
-.course-item.top-rated .star {
-  display: inline;
-}
-.course-item h3 {
-  position: relative;
-  padding-right: 20%;
-  margin: 0;
-}
-.course-item h3 .duration-creation {
-  font-size: 1.4rem;
-  position: absolute;
-  top: 0.7rem;
-  right: 0;
-  text-align: right;
-  width: 20%;
-}
-.course-item .buttons {
-  position: absolute;
-  top: 0;
-  right: 0.5rem;
-  width: 12rem;
-}
-.course-item .buttons button {
-  height: 3rem;
-  line-height: normal;
-  margin: 0.25rem 0;
-  width: 100%;
-}
-.course-item .buttons button svg {
-  fill: #9b4dca;
-  height: 1em;
-  width: 1em;
-}
+ */

@@ -1,12 +1,13 @@
-<header class="container">
-  <div class="row">
-    <div class="column column-60">
-      <app-logo></app-logo>
-    </div>
-    <div class="column column-40 controls">
-      <span class="user-name" *ngIf="authService.isAuthenticated()">{{ authService.getUserInfo() }}</span>
-      <button class="button button-outline" *ngIf="!authService.isAuthenticated()" routerLink='../login'>Login</button>
-      <button class="button button-outline" *ngIf="authService.isAuthenticated()" (click)="logout()">Log OFF</button>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <app-logo></app-logo>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ml-auto" >
+      <span class="navbar-text user-name" *ngIf="authService.isAuthenticated()">{{ authService.getUserInfo() }}</span>
+      <button class="btn btn-outline-secondary" type="button" *ngIf="!authService.isAuthenticated()" routerLink='../login'>Login</button>
+      <button class="btn btn-outline-secondary" type="button" *ngIf="authService.isAuthenticated()" (click)="logout()">Log off</button>
     </div>
   </div>
-</header>
+</nav>
