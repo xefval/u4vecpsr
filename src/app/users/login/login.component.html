@@ -1,6 +1,8 @@
-<div>
-  <p class="login-error" *ngIf="err">{{ err }}</p>
-  <label>Login <input type="text" [(ngModel)]="usrLogin"></label>
-  <label>Password <input type="password" [(ngModel)]="usrPwd" (keyup.enter)="login()"></label>
-  <button class="button" (click)="login()">Login</button>
+<div class="container">
+  <div class="row">
+    <div class="column column-50 column-offset-25 login-form">  <p class="login-error" *ngIf="err">{{ err }}</p>
+      <label>Login <span class="small">(required)</span><input type="text" [(ngModel)]="usrLogin"></label>
+      <label>Password <span class="small">(required)</span><input type="password" [(ngModel)]="usrPwd" (keyup.enter)="login()"></label>
+      <button class="button" (click)="login()">Login</button></div>
+  </div>
 </div>

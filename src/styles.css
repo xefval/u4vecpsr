@@ -26,6 +26,11 @@ p {
   margin: 0;
 }
 
+span.small {
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
 .hidden {
   display: none;
 }
