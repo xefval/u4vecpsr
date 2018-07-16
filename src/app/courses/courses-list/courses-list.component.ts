@@ -37,8 +37,10 @@ export class CoursesListComponent implements OnInit {
   }
 
   deleteCourse(id: number): void {
-    this.coursesService.removeCourse(id);
-    this.updateList();
+    if (confirm('Do you really want to delete this course?')) {
+      this.coursesService.removeCourse(id);
+      this.updateList();
+    }
   }
 
   loadMore() {
