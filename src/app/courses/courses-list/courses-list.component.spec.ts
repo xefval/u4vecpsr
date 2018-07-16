@@ -51,8 +51,6 @@ describe('CoursesListComponent', () => {
     expect(component.searchString).toBe('#6');
 
     searchButton.triggerEventHandler('click', null);
-
-    // expect(console.log).toHaveBeenCalledWith('test1');
   });
 
 });
