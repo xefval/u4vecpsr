@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { COURSE_ITEMS } from '../mock-courses';
+import { CoursesService } from '../courses-provider.service';
 import { CourseItem } from '../course-item';
 import { FilterCoursesPipe } from '../filter-courses.pipe';
 
@@ -13,14 +13,15 @@ export class CoursesListComponent implements OnInit {
   courses: CourseItem[];
   visibleCourses: CourseItem[];
   private filterCourses: FilterCoursesPipe = new FilterCoursesPipe();
+  private updateList = () => this.visibleCourses = this.courses = this.coursesService.getCoursesList();
 
-  constructor() {
+  constructor(private coursesService: CoursesService) {
     this.visibleCourses = this.courses = [];
     this.searchString = '';
   }
 
   ngOnInit() {
-    this.visibleCourses = this.courses = COURSE_ITEMS;
+    this.updateList();
   }
 
   findCourse(text: string): void {
@@ -36,11 +37,11 @@ export class CoursesListComponent implements OnInit {
   }
 
   deleteCourse(id: number): void {
-    console.log('Delete course ' + id.toString() + ' click');
+    this.coursesService.removeCourse(id);
+    this.updateList();
   }
 
   loadMore() {
     console.log('Load more button click');
   }
-
 }

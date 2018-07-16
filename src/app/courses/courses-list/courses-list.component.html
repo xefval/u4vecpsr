@@ -5,7 +5,7 @@
     <button class="button add" (click)="addCourse()"><svg><use xlink:href='./assets/img/sprites.svg#icon-add'/></svg> Add course</button>
   </div>
   <div>
-    <app-course *ngFor="let course of visibleCourses | orderBy:'creationDate':'dsc'; let i = index" [course]="course" (edit)="editCourse(course)" (delete)="deleteCourse(i)"></app-course>
+    <app-course *ngFor="let course of visibleCourses | orderBy:'creationDate':'dsc'; let i = index" [course]="course" (edit)="editCourse(course)" (delete)="deleteCourse(course.id)"></app-course>
     <div class="no-data" *ngIf="visibleCourses.length === 0">No data. Feel free to add new course.</div>
   </div>
   <button class="button button-outline load-more" (click)="loadMore()" *ngIf="visibleCourses.length > 0">Load more</button>
