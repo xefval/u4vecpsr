@@ -20,3 +20,8 @@ header app-logo {
   display: block;
   position: relative;
 }
+
+header .user-name {
+  font-weight: bold;
+  margin: 0 0.5rem;
+}

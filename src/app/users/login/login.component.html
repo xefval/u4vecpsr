@@ -1,5 +1,6 @@
-<form>
-  <input type="text">
-  <input type="text">
-  <button class="button">Login</button>
-</form>
+<div>
+  <p class="login-error" *ngIf="err">{{ err }}</p>
+  <label>Login <input type="text" [(ngModel)]="usrLogin"></label>
+  <label>Password <input type="password" [(ngModel)]="usrPwd" (keyup.enter)="login()"></label>
+  <button class="button" (click)="login()">Login</button>
+</div>

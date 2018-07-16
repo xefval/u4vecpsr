@@ -4,8 +4,9 @@
       <app-logo></app-logo>
     </div>
     <div class="column column-40 controls">
-      <button class="button button-outline" routerLink='../login'>User Login</button>
-      <button class="button button-outline">Log OFF</button>
+      <span class="user-name" *ngIf="authService.isAuthenticated()">{{ authService.getUserInfo() }}</span>
+      <button class="button button-outline" *ngIf="!authService.isAuthenticated()" routerLink='../login'>Login</button>
+      <button class="button button-outline" *ngIf="authService.isAuthenticated()" (click)="logout()">Log OFF</button>
     </div>
   </div>
 </header>
