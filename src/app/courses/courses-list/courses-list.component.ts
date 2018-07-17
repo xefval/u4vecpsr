@@ -40,12 +40,14 @@ export class CoursesListComponent implements OnInit {
 
   deleteCourse(id: number): void {
     const modalRef = this.modalService.open(DlgConfirmComponent);
-    modalRef.componentInstance.msg = 'World';
 
-    if (confirm('Do you really want to delete this course?')) {
-      this.coursesService.removeCourse(id);
-      this.updateList();
-    }
+    modalRef.componentInstance.msg = 'Do you really want to delete this course?';
+    modalRef.result.then(result => {
+      if (result === 'OK') {
+        this.coursesService.removeCourse(id);
+        this.updateList();
+      }
+    });
   }
 
   loadMore() {
