@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { CoursesListComponent } from './courses-list.component';
 import { OrderByPipe } from '../order-by.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('CoursesListComponent', () => {
   let component: CoursesListComponent;
@@ -11,7 +12,10 @@ describe('CoursesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [
+        FormsModule,
+        NgbModule.forRoot()
+      ],
       declarations: [ OrderByPipe, CoursesListComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -30,7 +34,7 @@ describe('CoursesListComponent', () => {
   });
 
   it('should log into console on Load-More button click', () => {
-    const button = fixture.debugElement.query(By.css('.button.load-more'));
+    const button = fixture.debugElement.query(By.css('.btn.load-more'));
     button.triggerEventHandler('click', null);
     expect(console.log).toHaveBeenCalledWith('Load more button click');
   });

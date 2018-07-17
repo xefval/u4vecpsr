@@ -15,10 +15,10 @@
         <p class="card-text">{{course.description}}</p>
       </div>
       <div class="col-lg-2 col-md-4 text-right">
-        <button class="btn btn-sm btn-outline-primary w-100" (click)="editCourse(id)">
+        <button class="btn btn-sm btn-outline-primary w-100 edit" (click)="editCourse(id)">
           <svg><use xlink:href='./assets/img/sprites.svg#icon-edit'/></svg> Edit
         </button>
-        <button class="btn btn-sm btn-outline-danger mt-2 w-100" (click)="deleteCourse(id)">
+        <button class="btn btn-sm btn-outline-danger mt-2 w-100 delete" (click)="deleteCourse(id)">
           <svg><use xlink:href='./assets/img/sprites.svg#icon-delete'/></svg> Delete
         </button>
       </div>

@@ -7,7 +7,7 @@ import { CourseBorderDirective } from './course-border.directive';
 import { FormsModule } from '@angular/forms';
 import { OrderByPipe } from './order-by.pipe';
 import { FilterCoursesPipe } from './filter-courses.pipe';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DlgConfirmComponent } from './dlg-confirm/dlg-confirm.component';
 
 @NgModule({

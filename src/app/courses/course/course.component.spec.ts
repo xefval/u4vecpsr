@@ -54,13 +54,13 @@ describe('CourseComponent events', () => {
   });
 
   it('should rise course edit', () => {
-    const editButton = fixture.debugElement.query(By.css('.button.edit'));
+    const editButton = fixture.debugElement.query(By.css('.btn.edit'));
     editButton.triggerEventHandler('click', null);
     expect(component.edit).toBe(1);
   });
 
   it('should rise course delete', () => {
-    const editButton = fixture.debugElement.query(By.css('.button.delete'));
+    const editButton = fixture.debugElement.query(By.css('.btn.delete'));
     editButton.triggerEventHandler('click', null);
     expect(component.delete).toBe(2);
   });
