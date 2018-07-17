@@ -1,5 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @import url(../node_modules/bootstrap/dist/css/bootstrap.css);
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  background: transparent;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -24,8 +39,37 @@ app-courses-list .star svg {
   width: 1.4rem;
   fill: #6c757d;
 }
-app-courses-list button svg {
+app-courses-list .btn-outline-secondary svg {
   height: 1.4rem;
   width: 1.4rem;
   fill: #6c757d;
+}
+app-courses-list .btn-outline-secondary:hover svg {
+  fill: #fff;
+}
+
+app-course .card.fresh {
+  border-color: #28a745;
+}
+app-course .card.upcomming {
+  border-color: #007bff;
+}
+app-course .card .star svg {
+  fill: #ffc107;
+  height: 1em;
+  width: 1em;
+}
+app-course button svg {
+  margin-top: -0.2em;
+  height: 1em;
+  width: 1em;
+}
+app-course button.btn-outline-primary svg {
+  fill: #007bff;
+}
+app-course button.btn-outline-danger svg {
+  fill: #dc3545;
+}
+app-course button:hover svg {
+  fill: #fff;
 }
