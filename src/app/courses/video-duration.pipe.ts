@@ -7,7 +7,7 @@ export class VideoDurationPipe implements PipeTransform {
     const hour = Math.floor(timeSpan / 60);
     const min = timeSpan % 60;
 
-    return format.replace('h', joinWithUnit(hour, ['h'])).replace('m', joinWithUnit(min, ['minute', 'munutes']));
+    return format.replace('h', joinWithUnit(hour, ['h'])).replace('m', joinWithUnit(min, ['minute', 'minutes']));
   }
 }
 

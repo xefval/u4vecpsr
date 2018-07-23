@@ -10,6 +10,8 @@ import { FilterCoursesPipe } from './filter-courses.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DlgConfirmComponent } from './dlg-confirm/dlg-confirm.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
+import { DateInputComponent } from './date-input/date-input.component';
+import { DurationInputComponent } from './duration-input/duration-input.component';
 
 @NgModule({
   imports: [
@@ -26,7 +28,9 @@ import { CreateCourseComponent } from './create-course/create-course.component';
     OrderByPipe,
     FilterCoursesPipe,
     DlgConfirmComponent,
-    CreateCourseComponent
+    CreateCourseComponent,
+    DateInputComponent,
+    DurationInputComponent
   ],
   bootstrap: [DlgConfirmComponent]
 })
