@@ -11,9 +11,10 @@ export class DurationInputComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.duration = '80';
   }
 
   isNumber(duration: string) {
-    return isNaN(+duration);
+    return isNaN(parseInt(duration, 10));
   }
 }
