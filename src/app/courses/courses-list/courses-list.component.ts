@@ -4,6 +4,7 @@ import { CourseItem } from '../course-item';
 import { FilterCoursesPipe } from '../filter-courses.pipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DlgConfirmComponent } from '../dlg-confirm/dlg-confirm.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses-list',
@@ -17,7 +18,7 @@ export class CoursesListComponent implements OnInit {
   private filterCourses: FilterCoursesPipe = new FilterCoursesPipe();
   private updateList = () => this.visibleCourses = this.courses = this.coursesService.getCoursesList();
 
-  constructor(private coursesService: CoursesService, private modalService: NgbModal) {
+  constructor(private coursesService: CoursesService, private modalService: NgbModal, private router: Router) {
     this.visibleCourses = this.courses = [];
     this.searchString = '';
   }
@@ -31,7 +32,7 @@ export class CoursesListComponent implements OnInit {
   }
 
   addCourse(): void {
-    console.log('Add course click');
+    this.router.navigate(['add']);
   }
 
   editCourse(course: CourseItem) {
