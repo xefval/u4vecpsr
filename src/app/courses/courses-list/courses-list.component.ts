@@ -32,11 +32,11 @@ export class CoursesListComponent implements OnInit {
   }
 
   addCourse(): void {
-    this.router.navigate(['add']);
+    this.router.navigate(['courses/new']);
   }
 
-  editCourse(course: CourseItem) {
-    console.log('Edit', course);
+  editCourse(id: number) {
+    this.router.navigate(['courses', id]);
   }
 
   deleteCourse(id: number): void {
