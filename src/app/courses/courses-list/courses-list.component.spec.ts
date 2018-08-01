@@ -18,7 +18,7 @@ describe('CoursesListComponent', () => {
         NgbModule.forRoot(),
         RouterTestingModule.withRoutes([
           { path: '', component: CoursesListComponent },
-          { path: 'list', component: CoursesListComponent }]
+          { path: 'courses', component: CoursesListComponent }]
         )
       ],
       declarations: [ OrderByPipe, CoursesListComponent ],

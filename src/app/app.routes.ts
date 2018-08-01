@@ -5,7 +5,9 @@ import { CreateCourseComponent } from './courses/create-course/create-course.com
 
 export const ROUTES: Route[] = [
   { path: 'add', component: CreateCourseComponent },
-  { path: 'list', component: CoursesListComponent },
+  { path: 'courses', component: CoursesListComponent },
+  { path: 'courses/:id', component: CoursesListComponent },
+  { path: 'courses/new', component: CoursesListComponent },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/list', pathMatch: 'full' }
+  { path: '', redirectTo: '/courses', pathMatch: 'full' }
 ];

@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     this.title = 'Videocourses';
 
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['list']);
+      this.router.navigate(['courses']);
     } else {
       this.router.navigate(['login']);
     }

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.authService.login(this.usrLogin, this.usrPwd)) {
-      this.router.navigate(['list']);
+      this.router.navigate(['courses']);
     } else {
       this.err = 'Wrong username or password';
     }

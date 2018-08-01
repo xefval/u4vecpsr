@@ -14,10 +14,10 @@ export class CreateCourseComponent implements OnInit {
   }
 
   saveCourse() {
-    this.router.navigate(['list']);
+    this.router.navigate(['courses']);
   }
 
   cancel() {
-    this.router.navigate(['list']);
+    this.router.navigate(['courses']);
   }
 }
