@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { COURSE_ITEMS } from '../mock-courses';
+import { CoursesService } from '../courses-provider.service';
 import { CourseItem } from '../course-item';
 import { FilterCoursesPipe } from '../filter-courses.pipe';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DlgConfirmComponent } from '../dlg-confirm/dlg-confirm.component';
 
 @Component({
   selector: 'app-courses-list',
@@ -13,14 +15,15 @@ export class CoursesListComponent implements OnInit {
   courses: CourseItem[];
   visibleCourses: CourseItem[];
   private filterCourses: FilterCoursesPipe = new FilterCoursesPipe();
+  private updateList = () => this.visibleCourses = this.courses = this.coursesService.getCoursesList();
 
-  constructor() {
+  constructor(private coursesService: CoursesService, private modalService: NgbModal) {
     this.visibleCourses = this.courses = [];
     this.searchString = '';
   }
 
   ngOnInit() {
-    this.visibleCourses = this.courses = COURSE_ITEMS;
+    this.updateList();
   }
 
   findCourse(text: string): void {
@@ -36,11 +39,18 @@ export class CoursesListComponent implements OnInit {
   }
 
   deleteCourse(id: number): void {
-    console.log('Delete course ' + id.toString() + ' click');
+    const modalRef = this.modalService.open(DlgConfirmComponent);
+
+    modalRef.componentInstance.msg = 'Do you really want to delete this course?';
+    modalRef.result.then(result => {
+      if (result === 'OK') {
+        this.coursesService.removeCourse(id);
+        this.updateList();
+      }
+    });
   }
 
   loadMore() {
     console.log('Load more button click');
   }
-
 }

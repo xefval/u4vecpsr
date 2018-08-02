@@ -1,5 +1,14 @@
-<form>
-  <input type="text">
-  <input type="text">
-  <button class="button">Login</button>
-</form>
+<div class="container pt-5 pb-5">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-3 border rounded shadow-sm">
+      <div class="form-group pt-3">
+        <p class="text-warning" *ngIf="err">{{ err }}</p>
+        <label>Login <span class="small text-info">(required)</span></label>
+        <input class="form-control" type="text" [(ngModel)]="usrLogin">
+        <label>Password <span class="small text-info">(required)</span></label>
+        <input class="form-control" type="password" [(ngModel)]="usrPwd" (keyup.enter)="login()">
+        <button class="btn btn-primary mt-3 form-control" (click)="login()">Login</button>
+      </div>
+    </div>
+  </div>
+</div>

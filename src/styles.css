@@ -1,35 +1,74 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/milligram/dist/milligram.css";
-
+@import url(../node_modules/bootstrap/dist/css/bootstrap.css);
 html {
-  box-sizing: border-box;
+  position: relative;
+  min-height: 100%;
 }
 
 body {
-  min-width: 500px;
+  margin-bottom: 60px;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.breadcrumb {
+  background-color: transparent;
+  background: transparent;
 }
 
-header, footer {
-  display: block;
-  margin: 0;
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #f5f5f5;
 }
 
-p {
-  margin: 0;
+app-header .user-name {
+  font-weight: bold;
+  margin-right: 1rem;
 }
 
-.hidden {
-  display: none;
+app-logo svg {
+  height: 30px;
+  width: 30px;
 }
 
-.wrapper {
-  min-height: calc(100vh - 4rem);
+app-courses-list .star svg {
+  height: 1.4rem;
+  width: 1.4rem;
+  fill: #6c757d;
+}
+app-courses-list .btn-outline-secondary svg {
+  height: 1.4rem;
+  width: 1.4rem;
+  fill: #6c757d;
+}
+app-courses-list .btn-outline-secondary:hover svg {
+  fill: #fff;
+}
+
+app-course .card.fresh {
+  border-color: #28a745;
+}
+app-course .card.upcomming {
+  border-color: #007bff;
+}
+app-course .card .star svg {
+  fill: #ffc107;
+  height: 1em;
+  width: 1em;
+}
+app-course button svg {
+  margin-top: -0.2em;
+  height: 1em;
+  width: 1em;
+}
+app-course button.btn-outline-primary svg {
+  fill: #007bff;
+}
+app-course button.btn-outline-danger svg {
+  fill: #dc3545;
+}
+app-course button:hover svg {
+  fill: #fff;
 }

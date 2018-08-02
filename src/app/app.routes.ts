@@ -6,4 +6,4 @@ export const ROUTES: Route[] = [
   { path: 'list', component: CoursesListComponent },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/list', pathMatch: 'full' }
-]; 
+];
