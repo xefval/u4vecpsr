@@ -27,6 +27,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   saveCourse() {
+    this.coursesService.updateCourse(this.course);
     this.router.navigate(['courses']);
   }
 
