@@ -14,21 +14,27 @@ export const ROUTES: Route[] = [
   },
   {
     path: 'courses',
-    component: CoursesListComponent,
-    canActivate: [CanActivateGuard],
-    data: { breadcrumb: 'Courses' }
-  },
-  {
-    path: 'courses/:id',
-    component: CreateCourseComponent,
-    canActivate: [CanActivateGuard],
-    data: { breadcrumb: 'Edit course' }
-  },
-  {
-    path: 'courses/new',
-    component: CreateCourseComponent,
-    canActivate: [CanActivateGuard],
-    data: { breadcrumb: 'New course' }
+    data: { breadcrumb: 'Courses' },
+    children: [
+      {
+        path: '',
+        component: CoursesListComponent,
+        canActivate: [CanActivateGuard],
+        data: { breadcrumb: 'Courses list' },
+      },
+      {
+        path: ':id',
+        component: CreateCourseComponent,
+        canActivate: [CanActivateGuard],
+        data: { breadcrumb: 'Edit course' }
+      },
+      {
+        path: 'new',
+        component: CreateCourseComponent,
+        canActivate: [CanActivateGuard],
+        data: { breadcrumb: 'New course' }
+      },
+    ]
   },
   {
     path: 'login',

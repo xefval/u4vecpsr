@@ -19,11 +19,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['']);
+    }
   }
 
   login() {
     if (this.authService.login(this.usrLogin, this.usrPwd)) {
-      this.router.navigate(['courses']);
+      this.router.navigate(['']);
     } else {
       this.err = 'Wrong username or password';
     }
