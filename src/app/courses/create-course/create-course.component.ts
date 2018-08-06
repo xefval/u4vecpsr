@@ -19,7 +19,8 @@ export class CreateCourseComponent implements OnInit {
       const courseId = data['id'];
 
       if (courseId === 'new') {
-        this.course = new CourseItem(0, '', new Date(), 60, 'Course');
+        const id = this.coursesService.getCoursesList().length;
+        this.course = new CourseItem(id, '', new Date(), 60, 'Course');
       } else if (courseId > 0) {
         this.course = this.coursesService.getCourseById(+courseId);
       }
