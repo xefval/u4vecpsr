@@ -10,18 +10,22 @@ import { CourseItem } from '../course-item';
 })
 export class CreateCourseComponent implements OnInit {
   public course: CourseItem;
+  private createFlag: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) { }
 
   ngOnInit() {
+    this.createFlag = false;
 
     this.route.params.subscribe((data) => {
       const courseId = data['id'];
 
       if (courseId === 'new') {
-        const id = this.coursesService.getCoursesList().length;
-        this.course = new CourseItem(id, '', new Date(), 60, 'Course');
-        this.coursesService.createCourse(this.course);
+        this.createFlag = true;
+        const id = this.coursesService.getCoursesList().reduce((val, course) => {
+          return Math.max(val, course.id);
+        }, 0);
+        this.course = new CourseItem(id + 1, '', new Date(), 60, 'Course');
       } else if (courseId > 0) {
         this.course = this.coursesService.getCourseById(+courseId);
       }
@@ -29,7 +33,12 @@ export class CreateCourseComponent implements OnInit {
   }
 
   saveCourse() {
-    this.coursesService.updateCourse(this.course);
+    if (this.createFlag) {
+      this.coursesService.createCourse(this.course);
+    } else {
+      this.coursesService.updateCourse(this.course);
+    }
+
     this.router.navigate(['courses']);
   }
 
