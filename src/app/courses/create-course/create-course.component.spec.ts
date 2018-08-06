@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CreateCourseComponent } from './create-course.component';
-import { RouterTestingModule } from "@angular/router/testing";
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateCourseComponent', () => {
   let component: CreateCourseComponent;

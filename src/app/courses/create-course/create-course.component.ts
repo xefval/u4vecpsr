@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CoursesService } from './../courses-provider.service';
+import { CoursesService } from '../courses-provider.service';
 import { CourseItem } from '../course-item';
 
 @Component({
@@ -14,10 +14,13 @@ export class CreateCourseComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) { }
 
   ngOnInit() {
+
     this.route.params.subscribe((data) => {
       const courseId = data['id'];
 
-      if (courseId > 0) {
+      if (courseId === 'new') {
+        this.course = new CourseItem(0, '', new Date(), 60, 'Course');
+      } else if (courseId > 0) {
         this.course = this.coursesService.getCourseById(+courseId);
       }
     });

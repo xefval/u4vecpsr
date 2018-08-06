@@ -6,22 +6,38 @@ import { Page404Component } from './core/page404/page404.component';
 import { CanActivateGuard } from './users/can-activate';
 
 export const ROUTES: Route[] = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/courses',
+    pathMatch: 'full',
+    data: { breadcrumb: 'Home' }
+  },
   {
     path: 'courses',
     component: CoursesListComponent,
-    canActivate: [CanActivateGuard]
+    canActivate: [CanActivateGuard],
+    data: { breadcrumb: 'Courses' }
   },
   {
     path: 'courses/:id',
     component: CreateCourseComponent,
-    canActivate: [CanActivateGuard]
+    canActivate: [CanActivateGuard],
+    data: { breadcrumb: 'Edit course' }
   },
   {
     path: 'courses/new',
     component: CreateCourseComponent,
-    canActivate: [CanActivateGuard]
+    canActivate: [CanActivateGuard],
+    data: { breadcrumb: 'New course' }
   },
-  { path: 'login', component: LoginComponent },
-  { path: '**', component: Page404Component }
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { breadcrumb: 'Login' }
+  },
+  {
+    path: '**',
+    component: Page404Component,
+    data: { breadcrumb: 'Page not found' }
+  }
 ];

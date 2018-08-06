@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthorizationService } from './users/authorization.service';
 
 @Component({
@@ -10,17 +9,11 @@ import { AuthorizationService } from './users/authorization.service';
 export class AppComponent implements OnInit {
   title: string;
 
-  constructor(public authService: AuthorizationService, private router: Router) {
+  constructor(public authService: AuthorizationService) {
     this.title = '';
   }
 
   ngOnInit() {
     this.title = 'Videocourses';
-
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['courses']);
-    } else {
-      this.router.navigate(['login']);
-    }
   }
 }

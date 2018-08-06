@@ -12,7 +12,17 @@ import { Page404Component } from './page404/page404.component';
     CommonModule,
     RouterModule
   ],
-  declarations: [HeaderComponent, FooterComponent, BreadcrumbsComponent, LogoComponent, Page404Component],
-  exports: [HeaderComponent, FooterComponent, BreadcrumbsComponent]
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    BreadcrumbsComponent,
+    LogoComponent,
+    Page404Component
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    BreadcrumbsComponent
+  ]
 })
 export class CoreModule { }
