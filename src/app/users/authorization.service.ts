@@ -9,7 +9,6 @@ export class AuthorizationService {
 
   constructor() {
     this.users = loadUsersBase();
-    console.log(this.users)
   }
 
   login(login: string, pwd: string) {

@@ -18,16 +18,16 @@ export class CreateCourseComponent implements OnInit {
     this.createFlag = false;
 
     this.route.params.subscribe((data) => {
-      const courseId = data['id'];
+      const courseId = parseInt(data['id'], 10);
 
-      if (courseId === 'new') {
+      if (!isNaN(courseId) && courseId > 0) {
+        this.course = this.coursesService.getCourseById(+courseId);
+      } else {
         this.createFlag = true;
         const id = this.coursesService.getCoursesList().reduce((val, course) => {
           return Math.max(val, course.id);
         }, 0);
         this.course = new CourseItem(id + 1, '', new Date(), 60, 'Course');
-      } else if (courseId > 0) {
-        this.course = this.coursesService.getCourseById(+courseId);
       }
     });
   }

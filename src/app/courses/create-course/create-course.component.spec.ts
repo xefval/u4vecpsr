@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CreateCourseComponent } from './create-course.component';
+import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateCourseComponent', () => {
@@ -10,6 +11,7 @@ describe('CreateCourseComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
         RouterTestingModule.withRoutes([
           { path: '', component: CreateCourseComponent },
           { path: 'add', component: CreateCourseComponent }]
