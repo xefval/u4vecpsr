@@ -25,10 +25,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.authService.login(this.usrLogin, this.usrPwd)) {
-      this.router.navigate(['']);
-    } else {
-      this.err = 'Wrong username or password';
-    }
+    this.authService.login(this.usrLogin, this.usrPwd).subscribe(
+      () => this.router.navigate(['']),
+      err => this.err = err.error,
+      () => console.log('Observer got a complete notification')
+    );
   }
 }
