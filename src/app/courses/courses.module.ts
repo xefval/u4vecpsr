@@ -12,12 +12,15 @@ import { DlgConfirmComponent } from './dlg-confirm/dlg-confirm.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { DateInputComponent } from './date-input/date-input.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from '../core/token.interceptor';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
   declarations: [
     CoursesListComponent,
@@ -30,6 +33,9 @@ import { DurationInputComponent } from './duration-input/duration-input.componen
     CreateCourseComponent,
     DateInputComponent,
     DurationInputComponent
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
   bootstrap: [DlgConfirmComponent]
 })

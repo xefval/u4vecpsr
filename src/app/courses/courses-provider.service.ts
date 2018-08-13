@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CourseItem } from './course-item';
+import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
+
+const BASE_URL = 'http://localhost:3004/courses';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +18,28 @@ export class CoursesService {
     new CourseItem(6, 'Course #6', 1630950056000, 99, 'Course description #6')
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   createCourse(course: CourseItem) {
     this.courseItems.push(course);
   }
 
   getCoursesList(): CourseItem[]  {
+
+    this.http.get<any>(`${BASE_URL}`).subscribe(
+      x => {
+        console.log(x)
+      },
+      err => {
+        console.log(err)
+      }
+    );
+
     return this.courseItems;
+  }
+
+  getCoursesPage(start: number, count: number) {
+    
   }
 
   getCourseById(id: number): CourseItem {

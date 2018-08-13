@@ -15,6 +15,8 @@ export class CoursesListComponent implements OnInit {
   searchString: string;
   courses: CourseItem[];
   visibleCourses: CourseItem[];
+  private page: number;
+  private coursesPerPage: number;
   private filterCourses: FilterCoursesPipe = new FilterCoursesPipe();
   private updateList = () => this.visibleCourses = this.courses = this.coursesService.getCoursesList();
 
@@ -24,6 +26,8 @@ export class CoursesListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.page = 0;
+    this.coursesPerPage = 10;
     this.updateList();
   }
 
