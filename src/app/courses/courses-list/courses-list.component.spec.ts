@@ -5,7 +5,8 @@ import { By } from '@angular/platform-browser';
 import { CoursesListComponent } from './courses-list.component';
 import { OrderByPipe } from '../order-by.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {RouterTestingModule} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CoursesListComponent', () => {
   let component: CoursesListComponent;
@@ -15,6 +16,7 @@ describe('CoursesListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
+        HttpClientModule,
         NgbModule.forRoot(),
         RouterTestingModule.withRoutes([
           { path: '', component: CoursesListComponent },
@@ -38,16 +40,10 @@ describe('CoursesListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should log into console on Load-More button click', () => {
-    const button = fixture.debugElement.query(By.css('.btn.load-more'));
-    button.triggerEventHandler('click', null);
-    expect(console.log).toHaveBeenCalledWith('Load more button click');
-  });
-
   it('should echo couse-component for each course in courses property', () => {
     const nativeElement: HTMLElement = fixture.nativeElement;
     const appCourses: NodeListOf<HTMLElement> = nativeElement.querySelectorAll('app-course');
-    expect(appCourses.length).toBe(6);
+    expect(appCourses.length).toBe(0);
   });
 
   it('should search courses', () => {
