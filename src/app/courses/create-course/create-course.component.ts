@@ -15,31 +15,40 @@ export class CreateCourseComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) { }
 
   ngOnInit() {
+    this.course = new CourseItem(0, '', new Date(), 60, 'Course');
     this.createFlag = false;
 
     this.route.params.subscribe((data) => {
       const courseId = parseInt(data['id'], 10);
 
       if (!isNaN(courseId) && courseId > 0) {
-        this.course = this.coursesService.getCourseById(+courseId);
+        this.coursesService.getCourseById(+courseId).subscribe(
+          response => this.course = response
+        );
       } else {
         this.createFlag = true;
-        const id = this.coursesService.getCoursesList().reduce((val, course) => {
-          return Math.max(val, course.id);
-        }, 0);
-        this.course = new CourseItem(id + 1, '', new Date(), 60, 'Course');
+        this.coursesService.getCoursesList().subscribe(
+          items => {
+            const id = items.reduce((val, course) => {
+              return Math.max(val, course.id);
+            }, 0);
+            this.course = new CourseItem(id + 1, '', new Date(), 60, 'Course');
+          }
+        );
       }
     });
   }
 
-  saveCourse() {
+  saveCourse(): void {
     if (this.createFlag) {
-      this.coursesService.createCourse(this.course);
+      this.coursesService.createCourse(this.course).subscribe(
+        () => this.router.navigate(['courses'])
+      );
     } else {
-      this.coursesService.updateCourse(this.course);
+      this.coursesService.putCourse(this.course).subscribe(
+        () => this.router.navigate(['courses'])
+      );
     }
-
-    this.router.navigate(['courses']);
   }
 
   cancel() {

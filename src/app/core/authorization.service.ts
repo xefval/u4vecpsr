@@ -30,11 +30,9 @@ export class AuthorizationService {
       this.http.post<any>(`${BASE_URL}/login`, body).subscribe(
         x => {
           localStorage.usr = x.token;
-          observer.next(true); 
+          observer.next(true);
         },
-        err => {
-          observer.error(err)
-        },
+        err => observer.error(err),
         () => observer.complete()
       );
     });

@@ -1,11 +1,11 @@
-<div class="card mt-2" [ngClass]="{ 'bg-light': course.topRated }" [appCourseBorder]="course.creationDate">
+<div class="card mt-2" [ngClass]="{ 'bg-light': course.isTopRated }" [appCourseBorder]="course.date">
   <div class="card-header container">
     <div class="row">
       <div class="col">
-        {{course.title | uppercase }} <span class="star" [ngClass]="{ 'd-none': !course.topRated }"> | <svg><use xlink:href='./assets/img/sprites.svg#icon-star'/></svg></span>
+        {{course.name | uppercase }} <span class="star" [ngClass]="{ 'd-none': !course.isTopRated }"> | <svg><use xlink:href='./assets/img/sprites.svg#icon-star'/></svg></span>
       </div>
       <div class="col-sm text-right">
-        {{ course.minDuration | videoDuration:"h m" }} {{ course.creationDate | date:"dd.MM.yyyy" }}
+        {{ course.length | videoDuration:"h m" }} {{ course.date | date:"dd.MM.yyyy" }}
       </div>
     </div>
   </div>

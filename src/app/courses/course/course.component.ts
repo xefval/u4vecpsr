@@ -16,11 +16,11 @@ export class CourseComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
   editCourse(): void {
     this.edit.emit();
   }
-  
+
   deleteCourse(): void {
     this.delete.emit();
   }
