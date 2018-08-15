@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private usrLogin: string;
-  private usrPwd: string;
-  private err: string;
+  public usrLogin: string;
+  public usrPwd: string;
+  public err: string;
 
-  constructor(private authService: AuthorizationService, private router: Router) {
+  constructor(public authService: AuthorizationService, private router: Router) {
     this.usrLogin = undefined;
     this.usrPwd = undefined;
     this.err = undefined;

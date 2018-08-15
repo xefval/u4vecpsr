@@ -9,7 +9,7 @@ describe('videoDurationPipe', () => {
   it('should format number', () => {
     const pipe = new VideoDurationPipe();
     expect(pipe.transform('60', 'h m')).toBe('1h ');
-    expect(pipe.transform('66', 'h m')).toBe('1h 6munutes');
+    expect(pipe.transform('66', 'h m')).toBe('1h 6minutes');
   });
 
 });

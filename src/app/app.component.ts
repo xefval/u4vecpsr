@@ -10,7 +10,7 @@ import { AuthorizationService } from './users/authorization.service';
 export class AppComponent implements OnInit {
   title: string;
 
-  constructor(private authService: AuthorizationService, private router: Router) {
+  constructor(public authService: AuthorizationService, private router: Router) {
     this.title = '';
   }
 

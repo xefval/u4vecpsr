@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { CoursesListComponent } from './courses-list.component';
 import { OrderByPipe } from '../order-by.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('CoursesListComponent', () => {
   let component: CoursesListComponent;
@@ -14,7 +15,11 @@ describe('CoursesListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        RouterTestingModule.withRoutes([
+          { path: '', component: CoursesListComponent },
+          { path: 'list', component: CoursesListComponent }]
+        )
       ],
       declarations: [ OrderByPipe, CoursesListComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
