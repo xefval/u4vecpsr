@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { CoursesListComponent } from './courses-list.component';
 import { OrderByPipe } from '../order-by.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {RouterTestingModule} from "@angular/router/testing";
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('CoursesListComponent', () => {
   let component: CoursesListComponent;
@@ -18,7 +18,7 @@ describe('CoursesListComponent', () => {
         NgbModule.forRoot(),
         RouterTestingModule.withRoutes([
           { path: '', component: CoursesListComponent },
-          { path: 'list', component: CoursesListComponent }]
+          { path: 'courses', component: CoursesListComponent }]
         )
       ],
       declarations: [ OrderByPipe, CoursesListComponent ],

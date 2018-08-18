@@ -21,7 +21,6 @@ import { DurationInputComponent } from './duration-input/duration-input.componen
   ],
   declarations: [
     CoursesListComponent,
-    CoursesListComponent,
     VideoDurationPipe,
     CourseComponent,
     CourseBorderDirective,
