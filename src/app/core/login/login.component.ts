@@ -27,8 +27,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.usrLogin, this.usrPwd).subscribe(
       () => this.router.navigate(['']),
-      err => this.err = err.error,
-      () => console.log('Observer got a complete notification')
+      err => this.err = err.error
     );
   }
 }
