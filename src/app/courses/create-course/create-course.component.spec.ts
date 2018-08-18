@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CreateCourseComponent } from './create-course.component';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CreateCourseComponent', () => {
   let component: CreateCourseComponent;
@@ -12,6 +13,7 @@ describe('CreateCourseComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
+        HttpClientModule,
         RouterTestingModule.withRoutes([
           { path: '', component: CreateCourseComponent },
           { path: 'add', component: CreateCourseComponent }]

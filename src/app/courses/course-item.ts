@@ -3,17 +3,17 @@ import { Course } from './course.model';
 export class CourseItem implements Course {
   id: number;
   description: string;
-  creationDate: Date;
-  minDuration: number;
-  title: string;
-  topRated: boolean;
+  date: Date;
+  length: number;
+  name: string;
+  isTopRated: boolean;
 
-  constructor(id: any, description: any, creationDate: any, minDuration: any, title: any, topRated: boolean = false) {
+  constructor(id: any, description: any, date: any, length: any, name: any, isTopRated: boolean = false) {
     this.id = parseInt(id, 10);
-    this.description = title.toString();
-    this.creationDate = new Date(creationDate);
-    this.minDuration = parseInt(minDuration, 10);
-    this.title = description.toString();
-    this.topRated = topRated;
+    this.description = name.toString();
+    this.date = new Date(date);
+    this.length = parseInt(length, 10);
+    this.name = description.toString();
+    this.isTopRated = isTopRated;
   }
 }

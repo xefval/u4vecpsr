@@ -12,30 +12,44 @@ import { Router } from '@angular/router';
   styleUrls: ['./courses-list.component.css']
 })
 export class CoursesListComponent implements OnInit {
-  searchString: string;
-  courses: CourseItem[];
-  visibleCourses: CourseItem[];
+  public searchString: string;
+  public visibleCourses: CourseItem[];
+  private page: number;
+  private coursesPerPage: number;
   private filterCourses: FilterCoursesPipe = new FilterCoursesPipe();
-  private updateList = () => this.visibleCourses = this.courses = this.coursesService.getCoursesList();
 
-  constructor(private coursesService: CoursesService, private modalService: NgbModal, private router: Router) {
-    this.visibleCourses = this.courses = [];
+  constructor(
+    private coursesService: CoursesService,
+    private modalService: NgbModal,
+    private router: Router
+  ) {
+    this.visibleCourses = [];
     this.searchString = '';
   }
 
+  loadPage() {
+    this.coursesService.getCoursesPage(this.page * this.coursesPerPage, this.coursesPerPage).subscribe(
+      x => { this.visibleCourses = this.visibleCourses.concat(x); }
+    );
+  }
+
   ngOnInit() {
-    this.updateList();
+    this.page = 0;
+    this.coursesPerPage = 10;
+    this.loadPage();
   }
 
   findCourse(text: string): void {
-    this.visibleCourses = this.filterCourses.transform(this.courses, text);
+    this.coursesService.findCourses(this.searchString).subscribe(
+      x => { this.visibleCourses = x; }
+    );
   }
 
   addCourse(): void {
     this.router.navigate(['courses/new']);
   }
 
-  editCourse(id: number) {
+  editCourse(id: number): void {
     this.router.navigate(['courses', id]);
   }
 
@@ -45,13 +59,21 @@ export class CoursesListComponent implements OnInit {
     modalRef.componentInstance.msg = 'Do you really want to delete this course?';
     modalRef.result.then(result => {
       if (result === 'OK') {
-        this.coursesService.removeCourse(id);
-        this.updateList();
+        this.coursesService.deleteCourse(id).subscribe(
+          () => this.updateList()
+        );
       }
     });
   }
 
   loadMore() {
-    console.log('Load more button click');
+    this.page = this.page + 1;
+    this.loadPage();
+  }
+
+  updateList() {
+    this.coursesService.getCoursesPage(0, (this.page + 1) * this.coursesPerPage).subscribe(
+      x => { this.visibleCourses = x; }
+    );
   }
 }

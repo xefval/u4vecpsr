@@ -1,46 +1,41 @@
 import { Injectable } from '@angular/core';
 import { CourseItem } from './course-item';
+import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
+
+const BASE_URL = 'http://localhost:3004/courses';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
-  private courseItems: CourseItem[] = [
-    new CourseItem(1, 'Course #1', 1520948051000, 70, 'Course description #1', true),
-    new CourseItem(2, 'Course #2', 1530948052000, 35, 'Course description #2'),
-    new CourseItem(3, 'Course #3', 1520948053000, 60, 'Course description #3'),
-    new CourseItem(4, 'Course #4', 1520948054000, 121, 'Course description #4'),
-    new CourseItem(5, 'Course #5', 1520938056000, 164, 'Course description #5'),
-    new CourseItem(6, 'Course #6', 1630950056000, 99, 'Course description #6')
-  ];
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
-
-  createCourse(course: CourseItem) {
-    this.courseItems.push(course);
+  getCourseById(id: number): Observable<CourseItem> {
+    return this.http.get<CourseItem>(`${BASE_URL}/${id}`);
   }
 
-  getCoursesList(): CourseItem[]  {
-    return this.courseItems;
+  getCoursesList(): Observable<CourseItem[]>  {
+    return this.http.get<CourseItem[]>(`${BASE_URL}`);
   }
 
-  getCourseById(id: number): CourseItem {
-    return this.courseItems.find((item: CourseItem) => item.id === id);
+  getCoursesPage(start: number, count: number): Observable<CourseItem[]> {
+    return this.http.get<CourseItem[]>(`${BASE_URL}?start=${start}&count=${count}`);
   }
 
-  removeCourse(id: number) {
-    const index: number = this.courseItems.findIndex((item: CourseItem) => item.id === id);
-
-    if (index !== -1) {
-      this.courseItems.splice(index, 1);
-    }
+  findCourses(textFragment: string): Observable<CourseItem[]> {
+    return this.http.get<CourseItem[]>(`${BASE_URL}?textFragment=${textFragment}`);
   }
 
-  updateCourse(course: CourseItem) {
-    const index: number = this.courseItems.findIndex((item: CourseItem) => item.id === course.id);
+  deleteCourse(id: number): Observable<CourseItem> {
+    return this.http.delete<CourseItem>(`${BASE_URL}/${id}`);
+  }
 
-    if (index !== -1) {
-      this.courseItems[index] = course;
-    }
+  createCourse(course: CourseItem): Observable<any> {
+    return this.http.post<CourseItem>(`${BASE_URL}`, course);
+  }
+
+  putCourse(course: CourseItem): Observable<any> {
+    return this.http.put<CourseItem>(`${BASE_URL}/${course.id}`, course);
   }
 }

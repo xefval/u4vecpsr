@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { CoursesService } from './courses-provider.service';
-import { HttpClientModule } from '@angular/common/http';
+
+import { AuthorizationService } from './authorization.service';
 import {
   HttpModule,
   Http,
@@ -8,14 +8,15 @@ import {
   Response,
   ResponseOptions
 } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import {MockBackend} from '@angular/http/testing';
 
-describe('CoursesService', () => {
+describe('AuthorizationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpModule, HttpClientModule],
       providers: [
-        CoursesService,
+        AuthorizationService,
         MockBackend,
         {
           provide: Http,
@@ -26,7 +27,7 @@ describe('CoursesService', () => {
     });
   });
 
-  it('should be created', inject([CoursesService], (service: CoursesService) => {
+  it('should be created', inject([AuthorizationService], (service: AuthorizationService) => {
     expect(service).toBeTruthy();
   }));
 });
