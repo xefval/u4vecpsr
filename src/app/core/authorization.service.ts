@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject, BehaviorSubject, observable } from 'rxjs';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 const BASE_URL = 'http://localhost:3004/auth';
@@ -8,16 +8,24 @@ const BASE_URL = 'http://localhost:3004/auth';
   providedIn: 'root'
 })
 export class AuthorizationService {
-  private users;
+  public userInfo: Subject<any>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.userInfo = new BehaviorSubject(null);
+
+    setTimeout(() => {
+      this.updateUserInfo();
+    }, 1000);
+  }
 
   isAuthenticated(): string {
     return localStorage.usr;
   }
 
-  getUserInfo(): Observable<any> {
-    return this.http.post<any>(`${BASE_URL}/userInfo`, null)
+  updateUserInfo(): void {
+    this.http.post<any>(`${BASE_URL}/userInfo`, null).subscribe(
+      user => this.userInfo.next(user)
+    );
   }
 
   login(login: string, pwd: string): Observable<any> {
@@ -30,6 +38,7 @@ export class AuthorizationService {
       this.http.post<any>(`${BASE_URL}/login`, body).subscribe(
         x => {
           localStorage.usr = x.token;
+          this.updateUserInfo();
           observer.next(true);
         },
         err => observer.error(err),
@@ -40,5 +49,6 @@ export class AuthorizationService {
 
   logout() {
     localStorage.removeItem('usr');
+    this.userInfo.next(null);
   }
 }

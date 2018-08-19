@@ -17,11 +17,10 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.authService.isAuthenticated()) {
-      this.authService.getUserInfo().subscribe(
-        x => this.userInfo = x
-      );
-    }
+    this.authService.userInfo.subscribe(
+      x => { this.userInfo = x; }
+    )
+
   }
 
   logout() {
