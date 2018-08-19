@@ -23,9 +23,13 @@ export class AuthorizationService {
   }
 
   updateUserInfo(): void {
-    this.http.post<any>(`${BASE_URL}/userInfo`, null).subscribe(
-      user => this.userInfo.next(user)
-    );
+    if (this.isAuthenticated()) {
+      this.http.post<any>(`${BASE_URL}/userInfo`, null).subscribe(
+        user => this.userInfo.next(user)
+      );
+    } else {
+      this.userInfo.next(null);
+    }
   }
 
   login(login: string, pwd: string): Observable<any> {
