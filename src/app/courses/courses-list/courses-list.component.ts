@@ -5,6 +5,8 @@ import { FilterCoursesPipe } from '../filter-courses.pipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DlgConfirmComponent } from '../dlg-confirm/dlg-confirm.component';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { filter, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-courses-list',
@@ -16,7 +18,7 @@ export class CoursesListComponent implements OnInit {
   public visibleCourses: CourseItem[];
   private page: number;
   private coursesPerPage: number;
-  private filterCourses: FilterCoursesPipe = new FilterCoursesPipe();
+  private searchStr: Subject<string>;
 
   constructor(
     private coursesService: CoursesService,
@@ -25,6 +27,7 @@ export class CoursesListComponent implements OnInit {
   ) {
     this.visibleCourses = [];
     this.searchString = '';
+    this.searchStr = new Subject<string>();
   }
 
   loadPage() {
@@ -37,12 +40,24 @@ export class CoursesListComponent implements OnInit {
     this.page = 0;
     this.coursesPerPage = 10;
     this.loadPage();
+    this.searchStr
+      .pipe(
+        debounceTime(500),
+        filter((text) => text.length === 0 || text.length > 2)
+      )
+      .subscribe(
+        (text: string) => {
+          if (text.length === 0) {
+            this.updateList();
+          } else {
+            this.searchList(text);
+          }
+        }
+      );
   }
 
-  findCourse(text: string): void {
-    this.coursesService.findCourses(this.searchString).subscribe(
-      x => { this.visibleCourses = x; }
-    );
+  findCourse(event: string): void {
+    this.searchStr.next(event);
   }
 
   addCourse(): void {
@@ -74,6 +89,12 @@ export class CoursesListComponent implements OnInit {
   updateList() {
     this.coursesService.getCoursesPage(0, (this.page + 1) * this.coursesPerPage).subscribe(
       x => { this.visibleCourses = x; }
+    );
+  }
+
+  searchList(text: string) {
+    this.coursesService.findCourses(text).subscribe(
+      courses => { this.visibleCourses = courses; }
     );
   }
 }
