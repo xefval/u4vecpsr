@@ -3,7 +3,18 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class Loader.ServiceService {
+export class LoaderService {
+  public loading: boolean;
 
-  constructor() { }
+  constructor() {
+    this.loading = false;
+  }
+
+  show(): void {
+    this.loading = true;
+  }
+
+  hide(): void {
+    this.loading = false;
+  }
 }

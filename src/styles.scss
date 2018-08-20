@@ -102,13 +102,18 @@ app-course {
 }
 
 app-loader {
-  background: #fff;
-  font-size: 50pt;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0.9;
-  display: flex;
+  div.blind {
+    background: rgba(255, 255, 255, 0.5);
+    font-size: 50pt;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    div {
+      margin-top: 40vh;
+      width: 100%;
+    }
+  }
 }

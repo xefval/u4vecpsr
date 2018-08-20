@@ -10,6 +10,7 @@ import { Page404Component } from './page404/page404.component';
 import { CanActivateGuard } from '../core/can-activate';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../core/token.interceptor';
+import { LoaderInterceptor } from '../core/loader.interceptor';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 
@@ -37,7 +38,16 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     CanActivateGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
 })
 export class CoreModule { }

@@ -73,14 +73,16 @@ app-course button:hover svg {
   fill: #fff;
 }
 
-app-loader {
-  background: #fff;
+app-loader div.blind {
+  background: rgba(255, 255, 255, 0.5);
   font-size: 50pt;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.9;
-  display: flex;
+}
+app-loader div.blind div {
+  margin-top: 40vh;
+  width: 100%;
 }
