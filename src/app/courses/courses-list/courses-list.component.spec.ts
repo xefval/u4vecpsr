@@ -46,16 +46,4 @@ describe('CoursesListComponent', () => {
     expect(appCourses.length).toBe(0);
   });
 
-  it('should search courses', () => {
-    const searchInput: any = fixture.debugElement.query(By.css('input.search')).nativeElement;
-    const searchButton: DebugElement = fixture.debugElement.query(By.css('button.search'));
-
-    searchInput.value = '#6';
-    searchInput.dispatchEvent(new Event('input'));
-
-    expect(component.searchString).toBe('#6');
-
-    searchButton.triggerEventHandler('click', null);
-  });
-
 });

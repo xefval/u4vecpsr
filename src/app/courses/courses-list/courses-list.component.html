@@ -5,7 +5,6 @@
       <input class="form-control search" type="text" [(ngModel)]="searchString" (ngModelChange)="findCourse($event)" placeholder="Name, fragment or date">
     </div>
     <div class="form-group col-md-2">
-      <button class="btn btn-outline-secondary w-100 search" type="button" (click)="findCourse(searchString)">Search</button>
     </div>
     <div class="form-group col-md-3">
       <button class="btn btn-outline-secondary w-100 add" type="button" (click)="addCourse()"><svg><use xlink:href='./assets/img/sprites.svg#icon-add'/></svg> Add course</button>
