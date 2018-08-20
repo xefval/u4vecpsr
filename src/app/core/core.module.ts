@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { LogoComponent } from './logo/logo.component';
+import { LoaderComponent } from './loader/loader.component';
 import { RouterModule } from '@angular/router';
 import { Page404Component } from './page404/page404.component';
 import { CanActivateGuard } from '../core/can-activate';
@@ -25,12 +26,14 @@ import { FormsModule } from '@angular/forms';
     BreadcrumbsComponent,
     LogoComponent,
     Page404Component,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    LoaderComponent
   ],
   providers: [
     CanActivateGuard,
