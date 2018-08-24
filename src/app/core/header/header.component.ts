@@ -1,30 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthorizationService } from '../authorization.service';
-import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+
+import { AuthActionTypes } from '../../auth/auth.reducer';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
   @Input() title: string;
-  public userInfo: any;
+  public userInfo$: any;
 
-  constructor(
-    public authService: AuthorizationService,
-    private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.authService.userInfo.subscribe(
-      x => { this.userInfo = x; }
-    )
-
+  constructor(private store: Store<any>) {
+    this.userInfo$ = store.pipe(select('auth', 'user'));
   }
 
+  ngOnInit() {}
+
   logout() {
-    this.authService.logout();
-    this.router.navigate(['login']);
+    this.store.dispatch({ type: AuthActionTypes.Logout });
   }
 }

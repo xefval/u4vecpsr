@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizationService } from './core/authorization.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import { AuthorizationService } from './core/authorization.service';
 export class AppComponent implements OnInit {
   title: string;
 
-  constructor(public authService: AuthorizationService) {
+  constructor() {
     this.title = '';
   }
 

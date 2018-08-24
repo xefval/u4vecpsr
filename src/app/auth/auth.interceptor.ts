@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AuthorizationService } from './authorization.service';
 import { Observable } from 'rxjs';
 import {
   HttpEvent,
@@ -8,10 +7,12 @@ import {
   HttpRequest
 } from '@angular/common/http';
 
-@Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+import { AuthService } from './auth.service';
 
-  constructor(public authService: AuthorizationService) {}
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+  constructor(public authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.authService.isAuthenticated() || '';

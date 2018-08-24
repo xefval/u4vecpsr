@@ -1,8 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <app-logo></app-logo>
   <div class="navbar-nav ml-auto" >
-    <span class="navbar-text user-name" *ngIf="userInfo && userInfo.login">{{ userInfo.login }}</span>
-    <button class="btn btn-outline-secondary" type="button" *ngIf="!authService.isAuthenticated()" routerLink='../login'>Login</button>
-    <button class="btn btn-outline-secondary" type="button" *ngIf="authService.isAuthenticated()" (click)="logout()">Log off</button>
+    <span class="navbar-text user-name" *ngIf="userInfo$ | async as user">
+      {{ user.login }}
+    </span>
+    <button class="btn btn-outline-secondary" type="button" *ngIf="!(userInfo$ | async )" routerLink='../login'>Login</button>
+    <button class="btn btn-outline-secondary" type="button" *ngIf="userInfo$ | async" (click)="logout()">Log off</button>
   </div>
 </nav>

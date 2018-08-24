@@ -2,12 +2,12 @@
   <div class="row justify-content-md-center">
     <div class="col col-lg-3 border rounded shadow-sm">
       <div class="form-group pt-3">
-        <p class="text-warning" *ngIf="err">{{ err }}</p>
+        <p class="text-warning" *ngIf="err$ | async">{{ err$ | async }}</p>
         <label>Login <span class="small text-info">(required)</span></label>
-        <input class="form-control" type="text" [(ngModel)]="usrLogin">
+        <input class="form-control" type="text" [formControl]="login">
         <label>Password <span class="small text-info">(required)</span></label>
-        <input class="form-control" type="password" [(ngModel)]="usrPwd" (keyup.enter)="login()">
-        <button class="btn btn-primary mt-3 form-control" (click)="login()">Login</button>
+        <input class="form-control" type="password" [formControl]="pwd" (keyup.enter)="onLoginClick()">
+        <button class="btn btn-primary mt-3 form-control" (click)="onLoginClick()">Login</button>
       </div>
     </div>
   </div>
