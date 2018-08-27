@@ -13,6 +13,10 @@ export class HeaderComponent implements OnInit {
 
   constructor(private store: Store<any>) {
     this.userInfo$ = store.pipe(select('auth', 'user'));
+
+    store.pipe(select('auth', 'user')).subscribe(
+      //x => console.log(x)
+    );
   }
 
   ngOnInit() {}

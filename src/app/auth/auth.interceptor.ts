@@ -7,19 +7,23 @@ import {
   HttpRequest
 } from '@angular/common/http';
 
-import { AuthService } from './auth.service';
+import { Store, select } from '@ngrx/store';
+import { first, flatMap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(public authService: AuthService) {}
+  constructor(private store: Store<any>) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.isAuthenticated() || '';
-    const authReq = req.clone({
-      headers: req.headers.set('Authorization', token)
-    });
-
-    return next.handle(authReq);
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    return this.store.select('auth', 'token').pipe(
+      first(),
+      flatMap(token => {
+        const authReq = !!token ? req.clone({
+          setHeaders: { Authorization: token },
+        }) : req;
+        return next.handle(authReq);
+      }),
+    );
   }
 }

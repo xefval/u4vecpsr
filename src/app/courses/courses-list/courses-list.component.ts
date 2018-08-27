@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../courses-provider.service';
 import { CourseItem } from '../course-item';
-import { FilterCoursesPipe } from '../filter-courses.pipe';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DlgConfirmComponent } from '../dlg-confirm/dlg-confirm.component';
 import { Router } from '@angular/router';

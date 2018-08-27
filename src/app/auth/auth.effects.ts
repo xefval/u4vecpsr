@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
 import { AuthActionTypes, Login, Logout, LoginSuccess, LoginFailure, UpdateUserInfo } from './auth.reducer';
@@ -12,6 +13,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private router: Router
   ) {}
 
   @Effect()
@@ -20,7 +22,7 @@ export class AuthEffects {
     map(action => action.payload),
     exhaustMap((auth: any) =>
       this.authService.login(auth.login, auth.pwd).pipe(
-        map(user => new LoginSuccess({ user })),
+        map(token => new LoginSuccess({ token })),
         catchError(error => of(new LoginFailure(error.error)))
       )
     )
@@ -30,7 +32,17 @@ export class AuthEffects {
   loginSuccess$ = this.actions$.pipe(
     ofType(AuthActionTypes.LoginSuccess),
     exhaustMap(() => this.authService.loadUserInfo().pipe(
-      map(user => new UpdateUserInfo({ user }))
+      map(user => new UpdateUserInfo({ user })),
+      tap(() => this.router.navigate(['']))
+    ))
+  );
+
+  @Effect()
+  loadToken$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LoadToken),
+    exhaustMap(() => this.authService.loadUserInfo().pipe(
+      map(user => new UpdateUserInfo({ user })),
+      tap(() => this.router.navigate(['']))
     ))
   );
 
@@ -39,6 +51,7 @@ export class AuthEffects {
     ofType<Logout>(AuthActionTypes.Logout),
     tap(() => {
       this.authService.logout();
+      this.router.navigate(['login']);
     })
   );
 
