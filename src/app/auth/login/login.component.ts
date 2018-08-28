@@ -10,7 +10,7 @@ import { AuthActionTypes } from '../../auth/auth.reducer';
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
-  public err$: Observable<boolean>;
+  public err$: Observable<string>;
   public login = new FormControl();
   public pwd = new FormControl();
 

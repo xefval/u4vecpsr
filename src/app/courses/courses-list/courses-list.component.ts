@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { filter, debounceTime } from 'rxjs/operators';
+import { filter, debounceTime, tap } from 'rxjs/operators';
 
 import { DlgConfirmComponent } from '../dlg-confirm/dlg-confirm.component';
 import { Course } from '../course.model';
@@ -15,7 +16,8 @@ import { CoursesActionTypes } from '../courses.reducer';
 })
 export class CoursesListComponent implements OnInit {
   public searchString: string;
-  public foundItems$: Course[];
+  public foundItems$: Observable<Course[]>;
+  public coursesList$: Observable<Course[]>;
   private searchStr: Subject<string>;
 
   constructor(
@@ -23,7 +25,6 @@ export class CoursesListComponent implements OnInit {
     private router: Router,
     private store: Store<any>
   ) {
-    this.foundItems$ = [];
     this.searchString = '';
     this.searchStr = new Subject<string>();
   }
@@ -34,6 +35,15 @@ export class CoursesListComponent implements OnInit {
 
   ngOnInit() {
     this.loadNextPage();
+
+    this.coursesList$ = this.store.pipe(
+      select('courses', 'loadedItems')
+    );
+
+    this.foundItems$ = this.store.pipe(
+      select('courses', 'loadedItems')
+    );
+
     this.searchStr
       .pipe(
         debounceTime(500),
@@ -51,7 +61,8 @@ export class CoursesListComponent implements OnInit {
   }
 
   findCourse(event: string): void {
-    this.searchStr.next(event);
+    this.store.dispatch({ type: CoursesActionTypes.Search });
+    //this.searchStr.next(event);
   }
 
   addCourse(): void {

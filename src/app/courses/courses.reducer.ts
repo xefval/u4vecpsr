@@ -2,8 +2,15 @@ import { Action } from '@ngrx/store';
 import { Course } from './course.model';
 
 export enum CoursesActionTypes {
+  Search = '[Courses] Search',
   LoadNextPage = '[Courses] LoadNextPage',
   PageLoaded = '[Courses] PageLoaded'
+}
+
+export class Search implements Action {
+  readonly type = CoursesActionTypes.LoadNextPage;
+
+  constructor(public payload: any) {}
 }
 
 export class LoadNextPage implements Action {
@@ -19,6 +26,7 @@ export class PageLoaded implements Action {
 }
 
 export type CoursesActionsUnion =
+  | Search
   | LoadNextPage
   | PageLoaded;
 
@@ -42,7 +50,7 @@ export function coursesReducer(state: CoursesState = initialState, action: Cours
       return {
         ...state,
         pageNum: state.pageNum + 1,
-        loadedItems: state.loadedItems.concat(action.payload),
+        loadedItems: state.loadedItems.concat(action.payload.data),
       };
 
     default:
