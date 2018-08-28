@@ -5,8 +5,7 @@ import { CourseItem } from '../course-item';
 
 @Component({
   selector: 'app-create-course',
-  templateUrl: './create-course.component.html',
-  styleUrls: ['./create-course.component.css']
+  templateUrl: './create-course.component.html'
 })
 export class CreateCourseComponent implements OnInit {
   public course: CourseItem;
@@ -15,7 +14,7 @@ export class CreateCourseComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) { }
 
   ngOnInit() {
-    this.course = new CourseItem(0, '', new Date(), 60, 'Course');
+    /* this.course = new CourseItem(0, '', new Date(), 60, 'Course');
     this.createFlag = false;
 
     this.route.params.subscribe((data) => {
@@ -36,18 +35,18 @@ export class CreateCourseComponent implements OnInit {
           }
         );
       }
-    });
+    }); */
   }
 
   saveCourse(): void {
     if (this.createFlag) {
-      this.coursesService.createCourse(this.course).subscribe(
+/*       this.coursesService.createCourse(this.course).subscribe(
         () => this.router.navigate(['courses'])
-      );
+      ); */
     } else {
-      this.coursesService.putCourse(this.course).subscribe(
+/*       this.coursesService.putCourse(this.course).subscribe(
         () => this.router.navigate(['courses'])
-      );
+      ); */
     }
   }
 

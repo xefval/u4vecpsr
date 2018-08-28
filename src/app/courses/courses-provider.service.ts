@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CourseItem } from './course-item';
-import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Course } from './course.model';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 const BASE_URL = 'http://localhost:3004/courses';
 
@@ -11,31 +11,31 @@ const BASE_URL = 'http://localhost:3004/courses';
 export class CoursesService {
   constructor(private http: HttpClient) { }
 
-  getCourseById(id: number): Observable<CourseItem> {
-    return this.http.get<CourseItem>(`${BASE_URL}/${id}`);
+  getById(id: number): Observable<Course> {
+    return this.http.get<Course>(`${BASE_URL}/${id}`);
   }
 
-  getCoursesList(): Observable<CourseItem[]>  {
-    return this.http.get<CourseItem[]>(`${BASE_URL}`);
+  getList(): Observable<Course[]>  {
+    return this.http.get<Course[]>(`${BASE_URL}`);
   }
 
-  getCoursesPage(start: number, count: number): Observable<CourseItem[]> {
-    return this.http.get<CourseItem[]>(`${BASE_URL}?start=${start}&count=${count}`);
+  loadPage(start: number, count: number): Observable<Course[]> {
+    return this.http.get<Course[]>(`${BASE_URL}?start=${start}&count=${count}`);
   }
 
-  findCourses(textFragment: string): Observable<CourseItem[]> {
-    return this.http.get<CourseItem[]>(`${BASE_URL}?textFragment=${textFragment}`);
+  find(textFragment: string): Observable<Course[]> {
+    return this.http.get<Course[]>(`${BASE_URL}?textFragment=${textFragment}`);
   }
 
-  deleteCourse(id: number): Observable<CourseItem> {
-    return this.http.delete<CourseItem>(`${BASE_URL}/${id}`);
+  delete(id: number): Observable<Course> {
+    return this.http.delete<Course>(`${BASE_URL}/${id}`);
   }
 
-  createCourse(course: CourseItem): Observable<any> {
-    return this.http.post<CourseItem>(`${BASE_URL}`, course);
+  create(course: Course): Observable<any> {
+    return this.http.post<Course>(`${BASE_URL}`, course);
   }
 
-  putCourse(course: CourseItem): Observable<any> {
-    return this.http.put<CourseItem>(`${BASE_URL}/${course.id}`, course);
+  put(course: Course): Observable<any> {
+    return this.http.put<Course>(`${BASE_URL}/${course.id}`, course);
   }
 }

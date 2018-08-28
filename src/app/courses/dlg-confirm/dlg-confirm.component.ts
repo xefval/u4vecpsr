@@ -3,8 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-dlg-confirm',
-  templateUrl: './dlg-confirm.component.html',
-  styleUrls: ['./dlg-confirm.component.css']
+  templateUrl: './dlg-confirm.component.html'
 })
 export class DlgConfirmComponent implements OnInit {
   @Input() msg;

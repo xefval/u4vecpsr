@@ -9,6 +9,14 @@ import { ROUTES } from './app.routes';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthModule } from './auth/auth.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+
+import { coursesReducer } from './courses/courses.reducer';
+import { CoursesEffects } from './courses/courses.effects';
+import { authReducer } from './auth/auth.reducer';
+import { AuthEffects } from './auth/auth.effects';
 
 @NgModule({
   declarations: [
@@ -20,7 +28,15 @@ import { AuthModule } from './auth/auth.module';
     CoreModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(ROUTES),
-    CoursesModule
+    CoursesModule,
+    StoreModule.forRoot({
+      auth: authReducer,
+      courses: coursesReducer
+    }),
+    StoreDevtoolsModule.instrument({
+      name: 'Courses DevTools'
+    }),
+    EffectsModule.forRoot([AuthEffects, CoursesEffects]),
   ],
   providers: [
     LoaderService

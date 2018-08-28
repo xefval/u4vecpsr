@@ -4,7 +4,6 @@ import { CourseItem } from '../course-item';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseComponent implements OnInit {
