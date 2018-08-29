@@ -3,7 +3,7 @@
     <label class="mt-2" for="duration-input">Duration (min)</label>
   </div>
   <div class="col-3">
-    <input type="text" class="form-control mx-auto" id="duration-input" placeholder="80" [(ngModel)]="duration">
+    <input type="text" class="form-control mx-auto" id="duration-input" placeholder="80" [formControl]="duration">
   </div>
   <div class="col-auto">
     <span class="form-control" [hidden]="isNumber(duration)">{{ duration | videoDuration:"h m" }}</span>

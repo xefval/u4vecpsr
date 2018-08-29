@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
@@ -14,16 +15,17 @@ import { CoursesActionTypes } from '../courses.reducer';
   selector: 'app-courses-list',
   templateUrl: './courses-list.component.html'
 })
-export class CoursesListComponent implements OnInit {
-  public searchString: string;
+export class CoursesListComponent implements OnInit, OnDestroy {
+  public search: FormControl;
   public coursesList$: Observable<Course[]>;
+  private searchSubscription: Subscription;
 
   constructor(
     private modalService: NgbModal,
     private router: Router,
     private store: Store<any>
   ) {
-    this.searchString = '';
+    this.search = new FormControl();
   }
 
   loadNextPage() {
@@ -45,13 +47,17 @@ export class CoursesListComponent implements OnInit {
     );
 
     this.loadNextPage();
+
+    this.searchSubscription = this.search.valueChanges.subscribe(
+      text => this.store.dispatch({
+        type: CoursesActionTypes.Search,
+        payload: { text: text }
+      })
+    );
   }
 
-  findCourse(text: string): void {
-    this.store.dispatch({
-      type: CoursesActionTypes.Search,
-      payload: { text: text }
-    });
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
   }
 
   addCourse(): void {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -12,7 +13,10 @@ import { CoursesActionTypes } from '../courses.reducer';
   templateUrl: './create-course.component.html'
 })
 export class CreateCourseComponent implements OnInit {
-  public course: CourseItem;
+  profileForm = new FormGroup({
+    firstName: new FormControl(''),
+    lastName: new FormControl('')
+  });
 
   constructor(
     private route: ActivatedRoute,

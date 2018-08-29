@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-duration-input',
@@ -6,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./duration-input.component.css']
 })
 export class DurationInputComponent implements OnInit {
-  public duration: string;
+  public duration: FormControl;
 
-  constructor() { }
+  constructor() {
+    this.duration = new FormControl({ value: 80 });
+  }
 
   ngOnInit() {
-    this.duration = '80';
   }
 
   isNumber(duration: string) {
