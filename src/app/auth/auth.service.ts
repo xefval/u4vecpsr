@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
 import { AuthActionTypes } from '../auth/auth.reducer';
-import { timeout } from 'rxjs/operators';
 
 const BASE_URL = 'http://localhost:3004/auth';
 
@@ -24,6 +23,12 @@ export class AuthService {
         this.store.dispatch({
             type: AuthActionTypes.LoadToken,
             payload: { token: token }
+          });
+      });
+    } else {
+      setTimeout(() => {
+        this.store.dispatch({
+            type: AuthActionTypes.Logout
           });
       });
     }
