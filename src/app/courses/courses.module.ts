@@ -5,15 +5,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CoursesListComponent } from './courses-list/courses-list.component';
-import { VideoDurationPipe } from './video-duration.pipe';
+import { VideoDurationPipe } from './video-duration/video-duration.pipe';
 import { CourseComponent } from './course/course.component';
-import { CourseBorderDirective } from './course-border.directive';
+import { CourseBorderDirective } from './course-border/course-border.directive';
 import { DlgConfirmComponent } from './dlg-confirm/dlg-confirm.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { DateInputComponent } from './date-input/date-input.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
-import { OrderByPipe } from './order-by.pipe';
-import { FilterCoursesPipe } from './filter-courses.pipe';
+import { OrderByPipe } from './order-by/order-by.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +27,6 @@ import { FilterCoursesPipe } from './filter-courses.pipe';
     CourseComponent,
     CourseBorderDirective,
     OrderByPipe,
-    FilterCoursesPipe,
     DlgConfirmComponent,
     CreateCourseComponent,
     DateInputComponent,

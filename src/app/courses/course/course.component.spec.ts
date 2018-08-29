@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CourseComponent } from './course.component';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { CourseBorderDirective } from '../course-border.directive';
-import { VideoDurationPipe } from '../video-duration.pipe';
+import { CourseBorderDirective } from '../course-border/course-border.directive';
+import { VideoDurationPipe } from '../video-duration/video-duration.pipe';
 
 @Component({
   template: `<app-course [course]="course" (edit)="editCourse(1)" (delete)="deleteCourse(2)"></app-course>`

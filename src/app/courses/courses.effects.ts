@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { exhaustMap, map, withLatestFrom, debounceTime, filter } from 'rxjs/operators';
 
-import { CoursesService } from './courses-provider.service';
+import { CoursesService } from './courses.service';
 import { CoursesActionTypes, LoadNextPage, PageLoaded, PagesUpdated, Search, Delete, Edit, Found, Create } from './courses.reducer';
 
 @Injectable()

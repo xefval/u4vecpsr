@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output, OnInit} from '@angular/core';
-import { CourseItem } from '../course-item';
+import { Course } from '../course.model';
 
 @Component({
   selector: 'app-course',
@@ -7,7 +7,7 @@ import { CourseItem } from '../course-item';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseComponent implements OnInit {
-  @Input() course: CourseItem;
+  @Input() course: Course;
   @Output() edit: EventEmitter<number> = new EventEmitter<number>();
   @Output() delete: EventEmitter<number> = new EventEmitter<number>();
 

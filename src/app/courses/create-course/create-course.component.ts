@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map, exhaustMap } from 'rxjs/operators';
 
-import { CourseItem } from '../course-item';
+import { CourseItem } from '../course.model';
 import { CoursesActionTypes } from '../courses.reducer';
 
 @Component({
