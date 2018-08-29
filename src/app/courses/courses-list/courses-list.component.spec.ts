@@ -1,12 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import { CoursesListComponent } from './courses-list.component';
 import { OrderByPipe } from '../order-by/order-by.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+
+import { coursesReducer } from '../courses.reducer';
 
 describe('CoursesListComponent', () => {
   let component: CoursesListComponent;
@@ -21,7 +23,10 @@ describe('CoursesListComponent', () => {
         RouterTestingModule.withRoutes([
           { path: '', component: CoursesListComponent },
           { path: 'courses', component: CoursesListComponent }]
-        )
+        ),
+        StoreModule.forRoot({
+          courses: coursesReducer
+        })
       ],
       declarations: [ OrderByPipe, CoursesListComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

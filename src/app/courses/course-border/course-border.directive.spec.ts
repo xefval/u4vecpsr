@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 class TestCourseBorderComponent {
   public date: any;
 
-  constructor() { this.date = new Date(); }
+  constructor() { this.date = Date.now(); }
 
   setDate(date) {
     this.date = date;
