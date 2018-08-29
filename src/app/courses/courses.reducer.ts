@@ -3,8 +3,8 @@ import { Course } from './course.model';
 
 export enum CoursesActionTypes {
   Found = '[Courses] Found',
-  ClearFound = '[Courses] ClearFound',
   Create = '[Courses] Create',
+  Edit = '[Courses] Edit',
   Delete = '[Courses] Delete',
   Search = '[Courses] Search',
   LoadNextPage = '[Courses] LoadNextPage',
@@ -18,14 +18,14 @@ export class Found implements Action {
   constructor(public payload: any) {}
 }
 
-export class ClearFound implements Action {
-  readonly type = CoursesActionTypes.ClearFound;
-
-  constructor() {}
-}
-
 export class Create implements Action {
   readonly type = CoursesActionTypes.Create;
+
+  constructor(public payload: any) {}
+}
+
+export class Edit implements Action {
+  readonly type = CoursesActionTypes.Edit;
 
   constructor(public payload: any) {}
 }
@@ -62,9 +62,9 @@ export class PagesUpdated implements Action {
 
 export type CoursesActionsUnion =
   | Found
-  | ClearFound
   | Create
   | Delete
+  | Edit
   | Search
   | LoadNextPage
   | PageLoaded
@@ -92,17 +92,17 @@ export function coursesReducer(state: CoursesState = initialState, action: Cours
         foundItems: action.payload.data,
       };
 
-      case CoursesActionTypes.ClearFound:
-      return {
-        ...state,
-        foundItems: [],
-      };
-
     case CoursesActionTypes.PageLoaded:
       return {
         ...state,
         pageNum: state.pageNum + 1,
         loadedItems: state.loadedItems.concat(action.payload.data),
+      };
+
+    case CoursesActionTypes.PagesUpdated:
+      return {
+        ...state,
+        loadedItems: action.payload.data,
       };
 
     default:

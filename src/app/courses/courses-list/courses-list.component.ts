@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Observable, combineLatest } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { filter, debounceTime, tap, map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 
 import { DlgConfirmComponent } from '../dlg-confirm/dlg-confirm.component';
 import { Course } from '../course.model';
-import { CoursesActionTypes, Found } from '../courses.reducer';
+import { CoursesActionTypes } from '../courses.reducer';
 
 @Component({
   selector: 'app-courses-list',
@@ -58,8 +58,8 @@ export class CoursesListComponent implements OnInit {
     this.router.navigate(['courses/new']);
   }
 
-  editCourse(id: number): void {
-    this.router.navigate(['courses', id]);
+  editCourse(course: Course): void {
+    this.router.navigate(['courses', course]);
   }
 
   deleteCourse(id: number): void {
@@ -68,9 +68,10 @@ export class CoursesListComponent implements OnInit {
     modalRef.componentInstance.msg = 'Do you really want to delete this course?';
     modalRef.result.then(result => {
       if (result === 'OK') {
-/*         this.coursesService.deleteCourse(id).subscribe(
-          () => this.updateList()
-        ); */
+        this.store.dispatch({
+          type: CoursesActionTypes.Delete,
+          payload: { id: id }
+        });
       }
     });
   }

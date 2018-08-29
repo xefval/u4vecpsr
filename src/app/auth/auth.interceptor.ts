@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import {
-  HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest
 } from '@angular/common/http';
 
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { first, flatMap } from 'rxjs/operators';
 
 @Injectable()
