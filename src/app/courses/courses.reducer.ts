@@ -37,7 +37,7 @@ export class Delete implements Action {
 }
 
 export class Search implements Action {
-  readonly type = CoursesActionTypes.LoadNextPage;
+  readonly type = CoursesActionTypes.Search;
 
   constructor(public payload: any) {}
 }
@@ -75,13 +75,15 @@ export interface CoursesState {
   pageNum: number;
   foundItems: Course[] | null;
   loadedItems: Course[];
+  searchString: string | null;
 }
 
 export const initialState: CoursesState = {
   itemsPerPage: 5,
   pageNum: 0,
   foundItems: null,
-  loadedItems: []
+  loadedItems: [],
+  searchString: null
 };
 
 export function coursesReducer(state: CoursesState = initialState, action: CoursesActionsUnion) {
@@ -90,6 +92,20 @@ export function coursesReducer(state: CoursesState = initialState, action: Cours
       return {
         ...state,
         foundItems: action.payload.data,
+      };
+
+    case CoursesActionTypes.Search:
+      let newStr = state.searchString;
+
+      if (action.payload.text.length > 2) {
+        newStr = action.payload.text;
+      } else if (action.payload.text.length === 0) {
+        newStr = null;
+      }
+
+      return {
+        ...state,
+        searchString: newStr,
       };
 
     case CoursesActionTypes.PageLoaded:

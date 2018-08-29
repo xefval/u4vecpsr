@@ -35,9 +35,17 @@ export class CoursesEffects {
     map(action => action.payload.id),
     exhaustMap((id) => this.coursesService.delete(id)),
     withLatestFrom(this.store$.select('courses')),
-    exhaustMap(([action, courses]) => this.coursesService.loadPage(0, courses.pageNum * courses.itemsPerPage).pipe(
-      map(data => new PagesUpdated({ data }))
-    ))
+    exhaustMap(([action, courses]) => {
+      if (courses.searchString) {
+        return this.coursesService.search(courses.searchString).pipe(
+          map(data => new Found({ data }))
+        );
+      } else {
+        return this.coursesService.loadPage(0, courses.pageNum * courses.itemsPerPage).pipe(
+          map(data => new PagesUpdated({ data }))
+        );
+      }
+    })
   );
 
   @Effect()
