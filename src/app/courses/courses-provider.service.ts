@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from './course.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 const BASE_URL = 'http://localhost:3004/courses';
@@ -23,7 +23,10 @@ export class CoursesService {
     return this.http.get<Course[]>(`${BASE_URL}?start=${start}&count=${count}`);
   }
 
-  find(textFragment: string): Observable<Course[]> {
+  search(textFragment: string): Observable<Course[]> {
+    if (textFragment.length === 0) {
+      return of(null);
+    }
     return this.http.get<Course[]>(`${BASE_URL}?textFragment=${textFragment}`);
   }
 

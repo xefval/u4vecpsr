@@ -2,19 +2,48 @@
 
   <div class="row">
     <div class="form-group col-md-7">
-      <input class="form-control search" type="text" [(ngModel)]="searchString" (ngModelChange)="findCourse($event)" placeholder="Name, fragment or date">
+      <input 
+        type="text"
+        class="form-control search"
+        [(ngModel)]="searchString"
+        (ngModelChange)="findCourse($event)"
+        placeholder="Name, fragment or date"
+        >
     </div>
     <div class="form-group col-md-2">
     </div>
     <div class="form-group col-md-3">
-      <button class="btn btn-outline-secondary w-100 add" type="button" (click)="addCourse()"><svg><use xlink:href='./assets/img/sprites.svg#icon-add'/></svg> Add course</button>
+      <button
+        type="button"
+        class="btn btn-outline-secondary w-100 add"
+        (click)="addCourse()"
+        ><svg><use xlink:href='./assets/img/sprites.svg#icon-add'/></svg>
+        Add course
+      </button>
     </div>
   </div>
 
   <div class="container">
-    <app-course *ngFor="let course of coursesList$ | async | orderBy:'date':'dsc'" [course]="course" (edit)="editCourse(course.id)" (delete)="deleteCourse(course.id)"></app-course>
-    <div class="no-data" *ngIf="(coursesList$ | async)?.length === 0">No data. Feel free to add new course.</div>
-    <button type="button" class="btn btn-outline-primary load-more w-100 mt-2 load-more" (click)="loadNextPage()" *ngIf="(coursesList$ | async)?.length > 0">Load more</button>
+    <app-course 
+      *ngFor="let course of coursesList$ | async | orderBy:'date':'dsc'" 
+      [course]="course" 
+      (edit)="editCourse(course.id)" 
+      (delete)="deleteCourse(course.id)"
+      >
+    </app-course>
+    
+    <div class="no-data"
+      *ngIf="(coursesList$ | async)?.length === 0"
+      >No data. Feel free to add new course.
+    </div>
+    
+    <button
+      type="button"
+      class="btn btn-outline-primary load-more w-100 mt-2 load-more"
+      *ngIf="(searchString.length < 3) && (coursesList$ | async)?.length > 0"
+      (click)="loadNextPage()"
+      >Load more
+    </button>
   </div>
 
 </div>

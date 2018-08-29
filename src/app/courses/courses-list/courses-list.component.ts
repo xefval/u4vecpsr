@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { filter, debounceTime, tap } from 'rxjs/operators';
+import { filter, debounceTime, tap, map } from 'rxjs/operators';
+
 
 import { DlgConfirmComponent } from '../dlg-confirm/dlg-confirm.component';
 import { Course } from '../course.model';
-import { CoursesActionTypes } from '../courses.reducer';
+import { CoursesActionTypes, Found } from '../courses.reducer';
 
 @Component({
   selector: 'app-courses-list',
@@ -16,9 +16,7 @@ import { CoursesActionTypes } from '../courses.reducer';
 })
 export class CoursesListComponent implements OnInit {
   public searchString: string;
-  public foundItems$: Observable<Course[]>;
   public coursesList$: Observable<Course[]>;
-  private searchStr: Subject<string>;
 
   constructor(
     private modalService: NgbModal,
@@ -26,7 +24,6 @@ export class CoursesListComponent implements OnInit {
     private store: Store<any>
   ) {
     this.searchString = '';
-    this.searchStr = new Subject<string>();
   }
 
   loadNextPage() {
@@ -34,35 +31,27 @@ export class CoursesListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadNextPage();
-
-    this.coursesList$ = this.store.pipe(
-      select('courses', 'loadedItems')
-    );
-
-    this.foundItems$ = this.store.pipe(
-      select('courses', 'loadedItems')
-    );
-
-    this.searchStr
-      .pipe(
-        debounceTime(500),
-        filter((text) => text.length === 0 || text.length > 2)
-      )
-      .subscribe(
-        (text: string) => {
-          if (text.length === 0) {
-            this.updateList();
-          } else {
-            this.searchList(text);
-          }
+    this.coursesList$ = combineLatest(
+      this.store.select('courses', 'foundItems'),
+      this.store.select('courses', 'loadedItems')
+    ).pipe(
+      map(([found, list]) => {
+        if (found) {
+          return found;
+        } else {
+          return list;
         }
-      );
+      })
+    );
+
+    this.loadNextPage();
   }
 
-  findCourse(event: string): void {
-    this.store.dispatch({ type: CoursesActionTypes.Search });
-    //this.searchStr.next(event);
+  findCourse(text: string): void {
+    this.store.dispatch({
+      type: CoursesActionTypes.Search,
+      payload: { text: text }
+    });
   }
 
   addCourse(): void {
@@ -86,15 +75,4 @@ export class CoursesListComponent implements OnInit {
     });
   }
 
-  updateList() {
-/*     this.coursesService.getCoursesPage(0, (this.page + 1) * this.coursesPerPage).subscribe(
-      x => { this.visibleCourses = x; }
-    ); */
-  }
-
-  searchList(text: string) {
-/*     this.coursesService.findCourses(text).subscribe(
-      courses => { this.visibleCourses = courses; }
-    ); */
-  }
 }
