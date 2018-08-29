@@ -2,7 +2,7 @@
   <app-logo></app-logo>
   <div class="navbar-nav ml-auto" >
     <span class="navbar-text user-name" *ngIf="userInfo$ | async as user">
-      {{ user.login }}
+      {{ user.name.first }} {{ user.name.last }}
     </span>
     <button class="btn btn-outline-secondary" type="button" *ngIf="!(userInfo$ | async )" routerLink='../login'>Login</button>
     <button class="btn btn-outline-secondary" type="button" *ngIf="userInfo$ | async" (click)="logout()">Log off</button>

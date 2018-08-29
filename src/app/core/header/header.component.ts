@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 
 import { AuthActionTypes } from '../../auth/auth.reducer';
 
@@ -7,15 +8,15 @@ import { AuthActionTypes } from '../../auth/auth.reducer';
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input() title: string;
   public userInfo$: any;
 
   constructor(private store: Store<any>) {
-    this.userInfo$ = store.pipe(select('auth', 'user'));
+    this.userInfo$ = this.store.select('auth', 'user').pipe(
+      map(data => data ? data.user : null)
+    );
   }
-
-  ngOnInit() {}
 
   logout() {
     this.store.dispatch({ type: AuthActionTypes.Logout });

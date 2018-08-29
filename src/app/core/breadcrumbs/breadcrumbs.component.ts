@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Breadcrumb } from './breadcrumb';
+import { Breadcrumb } from './breadcrumb.model';
 
 @Component({
   selector: 'app-breadcrumbs',
-  templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.css']
+  templateUrl: './breadcrumbs.component.html'
 })
 export class BreadcrumbsComponent implements OnInit {
 
