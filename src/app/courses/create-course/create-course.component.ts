@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map, exhaustMap } from 'rxjs/operators';
 
-import { CourseItem } from '../course.model';
+import { Course, CourseItem } from '../course.model';
 import { CoursesActionTypes } from '../courses.reducer';
 
 @Component({
@@ -13,16 +13,28 @@ import { CoursesActionTypes } from '../courses.reducer';
   templateUrl: './create-course.component.html'
 })
 export class CreateCourseComponent implements OnInit {
-  profileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl('')
-  });
+  public course: any;
+  public editForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<any>
-  ) {}
+    private store: Store<any>,
+    private fb: FormBuilder
+  ) {
+    this.editForm = this.fb.group({
+      date: '',
+      description: ['', [
+        Validators.required,
+        Validators.maxLength(4),
+      ]],
+      length: '',
+      name: ['', [
+        Validators.required,
+        Validators.maxLength(4),
+      ]]
+    });
+  }
 
   ngOnInit() {
     const course = this.route.params.pipe(
@@ -39,7 +51,12 @@ export class CreateCourseComponent implements OnInit {
       })
     );
 
-    course.subscribe(item => this.course = item);
+    course.subscribe(item => this.editForm.patchValue({
+      date: new Date(Date.parse(item.date)).toLocaleDateString('en-US'),
+      description:  item.description,
+      length: item.length,
+      name: item.name
+    }));
   }
 
   saveCourse(): void {

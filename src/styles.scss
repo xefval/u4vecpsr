@@ -24,6 +24,17 @@ body {
   background-color: #f5f5f5;
 }
 
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid {
+  border-color: #dc3545;
+}
+
+input.ng-touched.ng-invalid:focus,
+textarea.ng-touched.ng-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
 app-header {
   .user-name {
     font-weight: bold;

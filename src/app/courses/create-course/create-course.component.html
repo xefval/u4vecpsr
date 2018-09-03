@@ -1,18 +1,46 @@
 <div class="container">
-  <div class="form-group">
-    <label for="add-title">Title</label>
-    <input type="text" class="form-control" id="add-title" placeholder="Course title">  
-  </div>
-  <div class="form-group">
-    <label for="add-description">Description</label>
-    <textarea class="form-control" id="add-description" rows="5" placeholder="Course description"></textarea>
-  </div>
-  <div class="form-group">
-    <app-date-input></app-date-input>
-    <app-duration-input></app-duration-input>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-primary mr-2" (click)="saveCourse()">Save</button>
-    <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
-  </div>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="add-name">Name</label>
+      <input type="text"
+        id="add-name" 
+        class="form-control"
+        formControlName="name"
+        placeholder="Course title">  
+    </div>
+    <div class="form-group">
+      <label for="add-description">Description</label>
+      <textarea
+        id="add-description"
+        class="form-control"
+        formControlName="description"
+        rows="5"
+        placeholder="Course description"
+        ></textarea>
+    </div>
+    <div class="form-group">
+      <div class="form-group">
+          <label for="add-date">Date</label>
+          <input type="text"
+            id="add-date" 
+            class="form-control"
+            formControlName="date"
+            placeholder="01/01/18">  
+        </div>
+        <div class="form-group">
+            <label for="add-length">Duration</label>
+            <input type="text"
+              id="add-length" 
+              class="form-control"
+              formControlName="length"
+              placeholder="60">  
+          </div>
+      <!-- <app-date-input></app-date-input> -->
+      <!-- <app-duration-input></app-duration-input> -->
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary mr-2" (click)="saveCourse()">Save</button>
+      <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
 </div>
