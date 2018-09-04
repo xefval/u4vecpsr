@@ -1,12 +1,13 @@
 <div class="container">
-  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editForm" (ngSubmit)="saveCourse()">
     <div class="form-group">
+      <input type="hidden" formControlName="id">
       <label for="add-name">Name</label>
       <input type="text"
         id="add-name" 
         class="form-control"
         formControlName="name"
-        placeholder="Course title">  
+        placeholder="Course title">
     </div>
     <div class="form-group">
       <label for="add-description">Description</label>
@@ -21,26 +22,22 @@
     <div class="form-group">
       <div class="form-group">
           <label for="add-date">Date</label>
-          <input type="text"
-            id="add-date" 
-            class="form-control"
+          <app-date-input 
+            id="add-date"
             formControlName="date"
-            placeholder="01/01/18">  
+          ></app-date-input>
         </div>
         <div class="form-group">
             <label for="add-length">Duration</label>
-            <input type="text"
+            <app-duration-input
               id="add-length" 
-              class="form-control"
               formControlName="length"
-              placeholder="60">  
+            ></app-duration-input> 
           </div>
-      <!-- <app-date-input></app-date-input> -->
-      <!-- <app-duration-input></app-duration-input> -->
     </div>
     <div class="form-group">
-      <button class="btn btn-primary mr-2" (click)="saveCourse()">Save</button>
-      <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary mr-2" [disabled]="!editForm.valid">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
     </div>
   </form>
 </div>

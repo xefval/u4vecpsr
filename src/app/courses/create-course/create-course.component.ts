@@ -23,15 +23,20 @@ export class CreateCourseComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.editForm = this.fb.group({
-      date: '',
+      date: ['', [
+        Validators.required
+      ]],
       description: ['', [
         Validators.required,
-        Validators.maxLength(4),
+        Validators.maxLength(500),
       ]],
-      length: '',
+      id: '',
+      length: ['', [
+        Validators.required
+      ]],
       name: ['', [
         Validators.required,
-        Validators.maxLength(4),
+        Validators.maxLength(50),
       ]]
     });
   }
@@ -54,13 +59,15 @@ export class CreateCourseComponent implements OnInit {
     course.subscribe(item => this.editForm.patchValue({
       date: new Date(Date.parse(item.date)).toLocaleDateString('en-US'),
       description:  item.description,
+      id: item.id,
       length: item.length,
       name: item.name
     }));
   }
 
   saveCourse(): void {
-    if (this.course.id === 0) {
+    console.warn(this.editForm.value);
+/*     if (this.course.id === 0) {
       this.store.dispatch({
         type: CoursesActionTypes.Create,
         payload: { course: this.course }
@@ -72,7 +79,7 @@ export class CreateCourseComponent implements OnInit {
       });
     }
 
-    this.router.navigate(['courses']);
+    this.router.navigate(['courses']); */
   }
 
   cancel() {
