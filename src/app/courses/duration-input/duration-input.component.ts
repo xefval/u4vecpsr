@@ -10,8 +10,6 @@ import {
   ValidationErrors
 } from '@angular/forms';
 
-import { VideoDurationPipe } from '../video-duration/video-duration.pipe'
-
 @Component({
   selector: 'app-duration-input',
   template: `<input class="form-control" type="number" [formControl]="durationInput"> {{ durationInput.value | videoDuration:"h m" }}`,
@@ -20,13 +18,17 @@ import { VideoDurationPipe } from '../video-duration/video-duration.pipe'
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => DurationInputComponent), multi: true }
   ]
 })
-export class DurationInputComponent implements OnInit {
+export class DurationInputComponent implements OnInit, Validator {
   public durationInput: FormControl;
   public disabled: boolean;
 
   ngOnInit() {
     this.durationInput = new FormControl(
-      { value: '', disabled: this.disabled }
+      { value: '', disabled: this.disabled },
+      [
+        Validators.required,
+        Validators.pattern(/^(\d+)$/)
+      ]
     );
   }
 

@@ -23,17 +23,13 @@ export class CreateCourseComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.editForm = this.fb.group({
-      date: ['', [
-        Validators.required
-      ]],
+      date: '',
       description: ['', [
         Validators.required,
         Validators.maxLength(500),
       ]],
       id: '',
-      length: ['', [
-        Validators.required
-      ]],
+      length: '',
       name: ['', [
         Validators.required,
         Validators.maxLength(50),
@@ -65,8 +61,10 @@ export class CreateCourseComponent implements OnInit {
     }));
   }
 
+  get f() { return this.editForm.controls; }
+
   saveCourse(): void {
-    console.warn(this.editForm.value);
+    console.warn(this.editForm);
 /*     if (this.course.id === 0) {
       this.store.dispatch({
         type: CoursesActionTypes.Create,
@@ -83,6 +81,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['courses']);
+    console.warn(this.editForm);
+    //this.router.navigate(['courses']);
   }
 }

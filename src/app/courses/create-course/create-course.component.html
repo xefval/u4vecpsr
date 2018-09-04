@@ -2,7 +2,11 @@
   <form [formGroup]="editForm" (ngSubmit)="saveCourse()">
     <div class="form-group">
       <input type="hidden" formControlName="id">
-      <label for="add-name">Name</label>
+      <label for="add-name">Name
+<!--         <span class="text-danger" *ngIf="f.name.touched && f.name.errors">
+          <span *ngIf="f.name.errors.required">required</span>
+        </span> -->
+      </label>
       <input type="text"
         id="add-name" 
         class="form-control"
@@ -10,7 +14,11 @@
         placeholder="Course title">
     </div>
     <div class="form-group">
-      <label for="add-description">Description</label>
+      <label for="add-description">Description
+<!--         <span class="text-danger" *ngIf="f.description.touched && f.description.errors">
+          <span *ngIf="f.description.errors.required">required</span>
+        </span> -->
+      </label>
       <textarea
         id="add-description"
         class="form-control"
@@ -21,14 +29,22 @@
     </div>
     <div class="form-group">
       <div class="form-group">
-          <label for="add-date">Date</label>
+          <label for="add-date">Date
+<!--             <span class="text-danger" *ngIf="f.date.touched && f.date.errors">
+              <span *ngIf="f.name.errors.required">required</span>
+            </span> -->
+          </label>
           <app-date-input 
             id="add-date"
             formControlName="date"
           ></app-date-input>
         </div>
         <div class="form-group">
-            <label for="add-length">Duration</label>
+            <label for="add-length">Duration
+<!--               <span class="text-danger" *ngIf="f.length.touched && f.length.errors">
+                <span *ngIf="f.name.errors.required">required</span>
+              </span> -->
+            </label>
             <app-duration-input
               id="add-length" 
               formControlName="length"

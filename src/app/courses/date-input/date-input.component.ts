@@ -10,13 +10,6 @@ import {
   ValidationErrors
 } from '@angular/forms';
 
-/* export function dateValidator(nameRe: RegExp): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} | null => {
-    const wrong = nameRe.test(control.value);
-    return wrong ? {'wrongFormat': {value: control.value}} : null;
-  };
-} */
-
 @Component({
   selector: 'app-date-input',
   template: `<input class="form-control" type="text" [formControl]="dateInput">`,
@@ -33,6 +26,7 @@ export class DateInputComponent implements OnInit, Validator {
     this.dateInput = new FormControl(
       { value: '', disabled: this.disabled },
       [
+        Validators.required,
         Validators.pattern(/^(\d{1}|0\d{1}|1[0-2])\/(\d{1}|[0-2]\d{1}|3[0-1])\/(20\d{2})$/)
       ]
     );
@@ -59,6 +53,7 @@ export class DateInputComponent implements OnInit, Validator {
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return this.dateInput.errors;
+    console.log('test')
+    return {'custom': 'true'};
   }
 }
