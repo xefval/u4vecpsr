@@ -23,6 +23,7 @@ export class CreateCourseComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.editForm = this.fb.group({
+      authors: '',
       date: '',
       description: ['', [
         Validators.required,

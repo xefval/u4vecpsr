@@ -4,7 +4,19 @@ import { Store } from '@ngrx/store';
 import { exhaustMap, map, withLatestFrom, debounceTime, filter } from 'rxjs/operators';
 
 import { CoursesService } from './courses.service';
-import { CoursesActionTypes, LoadNextPage, PageLoaded, PagesUpdated, Search, Delete, Edit, Found, Create } from './courses.reducer';
+import {
+  CoursesActionTypes,
+  LoadNextPage,
+  PageLoaded,
+  PagesUpdated,
+  Search,
+  Delete,
+  Edit,
+  Found,
+  Create,
+  LoadAuthors,
+  AuthorsUpdated
+} from './courses.reducer';
 
 @Injectable()
 export class CoursesEffects {
@@ -67,6 +79,14 @@ export class CoursesEffects {
     filter(text => text.length === 0 || text.length > 2),
     exhaustMap((text) => this.coursesService.search(text).pipe(
       map(data => new Found({ data }))
+    ))
+  );
+
+  @Effect()
+  loadAuthors$ = this.actions$.pipe(
+    ofType<Search>(CoursesActionTypes.LoadAuthors),
+    exhaustMap(() => this.coursesService.loadAuthors().pipe(
+      map(data => new AuthorsUpdated({ data }))
     ))
   );
 

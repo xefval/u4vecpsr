@@ -41,17 +41,24 @@
           ></app-date-input>
         </div>
         <div class="form-group">
-            <label for="add-length">Duration
-              <span class="text-danger" *ngIf="f.length.errors">
-                <span *ngIf="f.length.errors.required">Required.</span>
-                <span *ngIf="f.length.errors.pattern">Wrong number format.</span>
-              </span>
-            </label>
-            <app-duration-input
-              id="add-length" 
-              formControlName="length"
-            ></app-duration-input> 
-          </div>
+          <label for="add-length">Duration (min)
+            <span class="text-danger" *ngIf="f.length.errors">
+              <span *ngIf="f.length.errors.required">Required.</span>
+              <span *ngIf="f.length.errors.pattern">Wrong number format.</span>
+            </span>
+          </label>
+          <app-duration-input
+            id="add-length" 
+            formControlName="length"
+          ></app-duration-input> 
+        </div>
+        <div class="form-group">
+          <label for="add-authors">Author(s)</label>
+          <app-author-input
+            id="add-authors" 
+            formControlName="authors"
+          ></app-author-input> 
+        </div>
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary mr-2" [disabled]="!editForm.valid">Save</button>
