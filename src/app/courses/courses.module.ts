@@ -13,6 +13,7 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import { DateInputComponent } from './date-input/date-input.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
 import { OrderByPipe } from './order-by/order-by.pipe';
+import { AuthorInputComponent } from './author-input/author-input.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { OrderByPipe } from './order-by/order-by.pipe';
     DlgConfirmComponent,
     CreateCourseComponent,
     DateInputComponent,
-    DurationInputComponent
+    DurationInputComponent,
+    AuthorInputComponent
   ],
   providers: [
   ],

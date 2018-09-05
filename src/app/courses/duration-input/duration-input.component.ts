@@ -1,14 +1,6 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  NG_VALIDATORS,
-  Validator,
-  Validators,
-  ValidatorFn,
-  ValidationErrors
-} from '@angular/forms';
+import { Component, OnInit, forwardRef, OnDestroy } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators} from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-duration-input',
@@ -18,41 +10,45 @@ import {
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => DurationInputComponent), multi: true }
   ]
 })
-export class DurationInputComponent implements OnInit, Validator {
-  public durationInput: FormControl;
-  public disabled: boolean;
+export class DurationInputComponent implements ControlValueAccessor, OnInit, OnDestroy {
+  public durationInput = new FormControl(
+    { value: '' },
+    [
+      Validators.required,
+      Validators.pattern(/^[1-9]{1}[0-9]*$/)
+    ]
+  );
+  private valueChangeSubscription: Subscription;
 
   ngOnInit() {
-    this.durationInput = new FormControl(
-      { value: '', disabled: this.disabled },
-      [
-        Validators.required,
-        Validators.pattern(/^(\d+)$/)
-      ]
+    this.valueChangeSubscription = this.durationInput.valueChanges.subscribe(
+      value => this.propagateChange(value)
     );
   }
 
-  onChange = (duration: number) => {};
-  onTouched = () => {};
-
-  writeValue(duration: number): void {
-    this.durationInput.setValue(duration);
-    this.onChange(duration);
+  ngOnDestroy() {
+    this.valueChangeSubscription.unsubscribe();
   }
 
-  registerOnChange(fn: (duration: number) => void): void {
-    this.onChange = fn;
+  onTouched = () => {};
+  propagateChange = (val) => {};
+  validateFn = (c) => this.durationInput.errors;
+
+  writeValue(value) {
+    if (value) {
+      this.durationInput.setValue(value);
+    }
+  }
+
+  registerOnChange(fn) {
+    this.propagateChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  validate(control: AbstractControl): ValidationErrors | null {
-    return this.durationInput.errors;
+  validate(c: FormControl) {
+    return this.validateFn(c);
   }
 }

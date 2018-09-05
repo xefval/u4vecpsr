@@ -1,14 +1,6 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  NG_VALIDATORS,
-  Validator,
-  Validators,
-  ValidatorFn,
-  ValidationErrors
-} from '@angular/forms';
+import { Component, OnInit, forwardRef, OnDestroy } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators} from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-date-input',
@@ -18,42 +10,45 @@ import {
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => DateInputComponent), multi: true }
   ]
 })
-export class DateInputComponent implements OnInit, Validator {
-  public disabled: boolean;
-  public dateInput: FormControl;
+export class DateInputComponent implements ControlValueAccessor, OnInit, OnDestroy {
+  public dateInput = new FormControl(
+    { value: '' },
+    [
+      Validators.required,
+      Validators.pattern(/^(\d{1}|0\d{1}|1[0-2])\/(\d{1}|[0-2]\d{1}|3[0-1])\/(20\d{2})$/)
+    ]
+  );
+  private valueChangeSubscription: Subscription;
 
   ngOnInit() {
-    this.dateInput = new FormControl(
-      { value: '', disabled: this.disabled },
-      [
-        Validators.required,
-        Validators.pattern(/^(\d{1}|0\d{1}|1[0-2])\/(\d{1}|[0-2]\d{1}|3[0-1])\/(20\d{2})$/)
-      ]
+    this.valueChangeSubscription = this.dateInput.valueChanges.subscribe(
+      value => this.propagateChange(value)
     );
   }
 
-  onChange = (date: string) => {};
-  onTouched = () => {};
-
-  writeValue(date: string): void {
-    this.dateInput.setValue(date);
-    this.onChange(date);
+  ngOnDestroy() {
+    this.valueChangeSubscription.unsubscribe();
   }
 
-  registerOnChange(fn: (date: string) => void): void {
-    this.onChange = fn;
+  onTouched = () => {};
+  propagateChange = (val) => {};
+  validateFn = (c) => this.dateInput.errors;
+
+  writeValue(value) {
+    if (value) {
+      this.dateInput.setValue(value);
+    }
+  }
+
+  registerOnChange(fn) {
+    this.propagateChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  validate(control: AbstractControl): ValidationErrors | null {
-    console.log('test')
-    return {'custom': 'true'};
+  validate(c: FormControl) {
+    return this.validateFn(c);
   }
 }
