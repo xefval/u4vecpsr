@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map, exhaustMap } from 'rxjs/operators';
 
@@ -12,9 +12,9 @@ import { CoursesActionTypes } from '../courses.reducer';
   selector: 'app-create-course',
   templateUrl: './create-course.component.html'
 })
-export class CreateCourseComponent implements OnInit {
-  public course: any;
+export class CreateCourseComponent implements OnInit, OnDestroy {
   public editForm: FormGroup;
+  private courseSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,36 +53,45 @@ export class CreateCourseComponent implements OnInit {
       })
     );
 
-    course.subscribe(item => this.editForm.patchValue({
+    this.courseSubscription = course.subscribe(item => this.editForm.patchValue({
       date: new Date(Date.parse(item.date)).toLocaleDateString('en-US'),
       description:  item.description,
       id: item.id,
       length: item.length,
-      name: item.name
+      name: item.name,
+      authors: item.authors && item.authors.map(val => {
+        if (!val.name) {
+          val.name = val.firstName + ' ' + val.lastName;
+        }
+        return val;
+      })
     }));
+  }
+
+  ngOnDestroy() {
+    this.courseSubscription.unsubscribe();
   }
 
   get f() { return this.editForm.controls; }
 
   saveCourse(): void {
-    console.warn(this.editForm);
-/*     if (this.course.id === 0) {
+    const course = this.editForm.value;
+    if (course.id === 0) {
       this.store.dispatch({
         type: CoursesActionTypes.Create,
-        payload: { course: this.course }
+        payload: { course: course }
       });
     } else {
       this.store.dispatch({
         type: CoursesActionTypes.Edit,
-        payload: { course: this.course }
+        payload: { course: course }
       });
     }
 
-    this.router.navigate(['courses']); */
+    this.router.navigate(['courses']);
   }
 
   cancel() {
-    console.warn(this.editForm);
-    //this.router.navigate(['courses']);
+    this.router.navigate(['courses']);
   }
 }

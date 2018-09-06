@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-date-input',
-  template: `<input class="form-control" type="text" [formControl]="dateInput">`,
+  template: `<input class="form-control w-25" type="text" [formControl]="dateInput">`,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DateInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => DateInputComponent), multi: true }

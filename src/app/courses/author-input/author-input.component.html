@@ -1,3 +1,28 @@
-<p>
-  author-input works!
-</p>
+<div class="rounded border">
+  <button 
+    type="button"
+    class="btn btn-outline-info btn-sm m-1 align-middle"
+    *ngFor="let value of values"
+    (click)="removeValue(value)"
+  >{{ value.name }} &#10005;</button>
+  <div class="d-inline-block m-1 align-middle" style="max-width: 14em">
+    <input class="pl-1 pr-1" type="text" [formControl]="authorsInput">
+    <div 
+      class="alert alert-light position-absolute"
+      style="max-width: 14em; z-index: 100;"
+      *ngIf="((authors$ | async)?.length === 0) && authorsInput.value"
+    >Nothing found</div>
+    
+    <div 
+      class="list-group w-100 position-absolute"
+      style="max-width: 14em; z-index: 100;"
+    >
+      <button 
+        type="button"
+        class="list-group-item list-group-item-action"
+        *ngFor="let author of (authors$ | async)"
+        (click)="addValue(author)"
+      >{{ author.name }}</button>
+    </div>
+  </div>
+</div>

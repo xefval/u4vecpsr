@@ -4,7 +4,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-duration-input',
-  template: `<input class="form-control" type="number" [formControl]="durationInput"> {{ durationInput.value | videoDuration:"h m" }}`,
+  template: `<div><input class="form-control d-inline w-25 mr-2" type="number" [formControl]="durationInput">
+    {{ durationInput.value | videoDuration:"h m" }}</div>`,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DurationInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => DurationInputComponent), multi: true }

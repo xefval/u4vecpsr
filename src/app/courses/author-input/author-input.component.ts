@@ -8,23 +8,23 @@ import { CoursesActionTypes } from '../courses.reducer';
 
 @Component({
   selector: 'app-author-input',
-  template: `
-    <ul class="selected"><li><li></ul>
-    <input class="form-control" type="text" [formControl]="authorsInput">
-    <ul class="available" *ngFor="let author of visibleAuthors"><li>{{ author }}<li></ul>`,
+  templateUrl: './author-input.component.html',
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AuthorInputComponent), multi: true },
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => AuthorInputComponent), multi: true }
   ]
 })
-export class AuthorInputComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class AuthorInputComponent implements ControlValueAccessor {
   public authorsInput = new FormControl('');
-  public values: string[];
+  public values: any[];
   private authors$: Observable<string[]>;
 
   constructor(
     private store: Store<any>
   ) {
+    this.values = [];
+    this.propagateChange(this.values);
+
     this.store.dispatch({ type: CoursesActionTypes.LoadAuthors });
 
     this.authors$ = combineLatest(
@@ -32,22 +32,23 @@ export class AuthorInputComponent implements ControlValueAccessor, OnInit, OnDes
       this.authorsInput.valueChanges
     ).pipe(
       map(([authors, str]) => {
-        if (found) {
-          return found;
-        } else {
-          return list;
+        if (!str) {
+          return [];
         }
-      })
+
+        const reg = new RegExp(str, 'gi');
+        return authors.filter(val => reg.test(val.name));
+      }),
+      map(values => values.filter(val => this.values.indexOf(val) === -1) )
     );
-
   }
 
-  ngOnInit() {
-
+  get value(): string[] {
+    return this.values;
   }
 
-  ngOnDestroy() {
-    this.authorsInputSubscription.unsubscribe();
+  set value(value: string[]) {
+    this.writeValue(value);
   }
 
   onTouched = () => {};
@@ -55,8 +56,9 @@ export class AuthorInputComponent implements ControlValueAccessor, OnInit, OnDes
   validateFn = (c) => this.authorsInput.errors;
 
   writeValue(value) {
-    if (value) {
-      this.authorsInput.setValue(value);
+    if (value && Array.isArray(value)) {
+      this.values = value;
+      this.propagateChange(this.values);
     }
   }
 
@@ -70,5 +72,16 @@ export class AuthorInputComponent implements ControlValueAccessor, OnInit, OnDes
 
   validate(c: FormControl) {
     return this.validateFn(c);
+  }
+
+  addValue(author) {
+    this.values.push(author);
+    this.authorsInput.setValue('');
+    this.propagateChange(this.values);
+  }
+
+  removeValue(value) {
+    this.values.splice(this.values.indexOf(value), 1);
+    this.propagateChange(this.values);
   }
 }
