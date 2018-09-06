@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CoursesListComponent } from './courses-list.component';
 import { OrderByPipe } from '../order-by/order-by.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { coursesReducer } from '../courses.reducer';
 
@@ -17,7 +17,7 @@ describe('CoursesListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         NgbModule.forRoot(),
         RouterTestingModule.withRoutes([

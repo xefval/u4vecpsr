@@ -15,7 +15,7 @@ export class DateInputComponent implements ControlValueAccessor, OnInit, OnDestr
     { value: '' },
     [
       Validators.required,
-      Validators.pattern(/^(\d{1}|0\d{1}|1[0-2])\/(\d{1}|[0-2]\d{1}|3[0-1])\/(20\d{2})$/)
+      Validators.pattern(/^(\d{1}|[0-2]\d{1}|3[0-1])\/(\d{1}|0\d{1}|1[0-2])\/(20\d{2})$/)
     ]
   );
   private valueChangeSubscription: Subscription;

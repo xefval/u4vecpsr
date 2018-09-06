@@ -53,7 +53,13 @@ export class AuthorInputComponent implements ControlValueAccessor {
 
   onTouched = () => {};
   propagateChange = (val) => {};
-  validateFn = (c) => this.authorsInput.errors;
+  validateFn = (c: FormControl) => {
+    const err = {
+      required: true
+    };
+
+    return (!c.value || c.value.length < 1) ? err : null;
+  }
 
   writeValue(value) {
     if (value && Array.isArray(value)) {

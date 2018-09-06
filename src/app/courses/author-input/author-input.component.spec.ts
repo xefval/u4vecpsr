@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
 
 import { AuthorInputComponent } from './author-input.component';
+import { coursesReducer } from '../courses.reducer';
 
 describe('AuthorInputComponent', () => {
   let component: AuthorInputComponent;
@@ -8,6 +11,11 @@ describe('AuthorInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule,
+        StoreModule.forRoot({
+          courses: coursesReducer
+        })],
       declarations: [ AuthorInputComponent ]
     })
     .compileComponents();

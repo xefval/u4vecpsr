@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CreateCourseComponent } from './create-course.component';
-import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { coursesReducer } from '../courses.reducer';
 
@@ -15,7 +15,7 @@ describe('CreateCourseComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         RouterTestingModule.withRoutes([
           { path: '', component: CreateCourseComponent },

@@ -54,7 +54,7 @@ export class CreateCourseComponent implements OnInit, OnDestroy {
     );
 
     this.courseSubscription = course.subscribe(item => this.editForm.patchValue({
-      date: new Date(Date.parse(item.date)).toLocaleDateString('en-US'),
+      date: new Date(Date.parse(item.date)).toLocaleDateString('en-GB'),
       description:  item.description,
       id: item.id,
       length: item.length,
@@ -92,6 +92,7 @@ export class CreateCourseComponent implements OnInit, OnDestroy {
   }
 
   cancel() {
-    this.router.navigate(['courses']);
+    console.log(this.editForm)
+    // this.router.navigate(['courses']);
   }
 }
