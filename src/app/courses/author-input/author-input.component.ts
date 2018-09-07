@@ -33,6 +33,7 @@ export class AuthorInputComponent implements ControlValueAccessor {
     ).pipe(
       map(([authors, str]) => {
         if (!str) {
+          this.onTouched();
           return [];
         }
 

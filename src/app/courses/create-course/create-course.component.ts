@@ -92,7 +92,6 @@ export class CreateCourseComponent implements OnInit, OnDestroy {
   }
 
   cancel() {
-    console.log(this.editForm)
-    // this.router.navigate(['courses']);
+    this.router.navigate(['courses']);
   }
 }
