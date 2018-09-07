@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map, exhaustMap } from 'rxjs/operators';
 
@@ -11,8 +11,9 @@ import { CoursesActionTypes } from '../courses.reducer';
   selector: 'app-create-course',
   templateUrl: './create-course.component.html'
 })
-export class CreateCourseComponent implements OnInit {
+export class CreateCourseComponent implements OnInit, OnDestroy {
   public course: CourseItem;
+  private courseSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +36,11 @@ export class CreateCourseComponent implements OnInit {
       })
     );
 
-    course.subscribe(item => this.course = item);
+    this.courseSubscription = course.subscribe(item => this.course = item);
+  }
+
+  ngOnDestroy() {
+    this.courseSubscription.unsubscribe();
   }
 
   saveCourse(): void {
