@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { DurationInputComponent } from './duration-input.component';
-import { VideoDurationPipe } from '../video-duration.pipe';
+import { VideoDurationPipe } from '../video-duration/video-duration.pipe';
 
 describe('DurationInputComponent', () => {
   let component: DurationInputComponent;

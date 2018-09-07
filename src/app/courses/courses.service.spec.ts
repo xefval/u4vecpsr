@@ -1,5 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { CoursesService } from './courses-provider.service';
+import { CoursesService } from './courses.service';
 import { HttpClientModule } from '@angular/common/http';
 import {
   HttpModule,

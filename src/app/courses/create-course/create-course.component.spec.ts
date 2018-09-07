@@ -4,6 +4,9 @@ import { CreateCourseComponent } from './create-course.component';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+
+import { coursesReducer } from '../courses.reducer';
 
 describe('CreateCourseComponent', () => {
   let component: CreateCourseComponent;
@@ -17,7 +20,10 @@ describe('CreateCourseComponent', () => {
         RouterTestingModule.withRoutes([
           { path: '', component: CreateCourseComponent },
           { path: 'add', component: CreateCourseComponent }]
-        )
+        ),
+        StoreModule.forRoot({
+          courses: coursesReducer
+        })
       ],
       declarations: [ CreateCourseComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

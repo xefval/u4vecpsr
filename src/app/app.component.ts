@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizationService } from './core/authorization.service';
+import { Store } from '@ngrx/store';
+
+import { AuthService } from './auth/auth.service';
+import { AuthActionTypes } from './auth/auth.reducer';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +12,26 @@ import { AuthorizationService } from './core/authorization.service';
 export class AppComponent implements OnInit {
   title: string;
 
-  constructor(public authService: AuthorizationService) {
+  constructor(
+    private auth: AuthService,
+    private store: Store<any>
+  ) {
     this.title = '';
   }
 
   ngOnInit() {
     this.title = 'Videocourses';
+    const token = this.auth.isAuthenticated();
+
+    if (token) {
+      this.store.dispatch({
+          type: AuthActionTypes.LoadToken,
+          payload: { token: token }
+        });
+    } else {
+      this.store.dispatch({
+          type: AuthActionTypes.Logout
+        });
+    }
   }
 }

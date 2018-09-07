@@ -1,54 +1,62 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CoursesService } from '../courses-provider.service';
-import { CourseItem } from '../course-item';
+import { of, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { map, exhaustMap } from 'rxjs/operators';
+
+import { CourseItem } from '../course.model';
+import { CoursesActionTypes } from '../courses.reducer';
 
 @Component({
   selector: 'app-create-course',
-  templateUrl: './create-course.component.html',
-  styleUrls: ['./create-course.component.css']
+  templateUrl: './create-course.component.html'
 })
-export class CreateCourseComponent implements OnInit {
+export class CreateCourseComponent implements OnInit, OnDestroy {
   public course: CourseItem;
-  private createFlag: boolean;
+  private courseSubscription: Subscription;
 
-  constructor(private router: Router, private route: ActivatedRoute, private coursesService: CoursesService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<any>
+  ) {}
 
   ngOnInit() {
-    this.course = new CourseItem(0, '', new Date(), 60, 'Course');
-    this.createFlag = false;
+    const course = this.route.params.pipe(
+      map(data => parseInt(data['id'], 10)),
+      exhaustMap(id => {
+        if (!isNaN(id) && id > 0) {
+          return this.store.select('courses', 'loadedItems').pipe(
+            map(list => list.filter(val => val.id === id)),
+            map(list => list[0])
+          );
+        } else {
+          return of(new CourseItem(0, '', new Date(), 60, 'Course'));
+        }
+      })
+    );
 
-    this.route.params.subscribe((data) => {
-      const courseId = parseInt(data['id'], 10);
+    this.courseSubscription = course.subscribe(item => this.course = item);
+  }
 
-      if (!isNaN(courseId) && courseId > 0) {
-        this.coursesService.getCourseById(+courseId).subscribe(
-          response => this.course = response
-        );
-      } else {
-        this.createFlag = true;
-        this.coursesService.getCoursesList().subscribe(
-          items => {
-            const id = items.reduce((val, course) => {
-              return Math.max(val, course.id);
-            }, 0);
-            this.course = new CourseItem(id + 1, '', new Date(), 60, 'Course');
-          }
-        );
-      }
-    });
+  ngOnDestroy() {
+    this.courseSubscription.unsubscribe();
   }
 
   saveCourse(): void {
-    if (this.createFlag) {
-      this.coursesService.createCourse(this.course).subscribe(
-        () => this.router.navigate(['courses'])
-      );
+    if (this.course.id === 0) {
+      this.store.dispatch({
+        type: CoursesActionTypes.Create,
+        payload: { course: this.course }
+      });
     } else {
-      this.coursesService.putCourse(this.course).subscribe(
-        () => this.router.navigate(['courses'])
-      );
+      this.store.dispatch({
+        type: CoursesActionTypes.Edit,
+        payload: { course: this.course }
+      });
     }
+
+    this.router.navigate(['courses']);
   }
 
   cancel() {

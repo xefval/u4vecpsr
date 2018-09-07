@@ -7,11 +7,9 @@ import { LogoComponent } from './logo/logo.component';
 import { LoaderComponent } from './loader/loader.component';
 import { RouterModule } from '@angular/router';
 import { Page404Component } from './page404/page404.component';
-import { CanActivateGuard } from '../core/can-activate';
+import { CanActivateGuard } from '../auth/auth.guard';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from '../core/token.interceptor';
 import { LoaderInterceptor } from '../core/loader.interceptor';
-import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -27,7 +25,6 @@ import { FormsModule } from '@angular/forms';
     BreadcrumbsComponent,
     LogoComponent,
     Page404Component,
-    LoginComponent,
     LoaderComponent
   ],
   exports: [
@@ -41,11 +38,6 @@ import { FormsModule } from '@angular/forms';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
       multi: true
     }
   ],
