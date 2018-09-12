@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
-
-import { AuthActionTypes } from '../auth/auth.reducer';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 
 const BASE_URL = 'http://localhost:3004/auth';
 
@@ -12,27 +10,7 @@ const BASE_URL = 'http://localhost:3004/auth';
 })
 export class AuthService {
 
-  constructor(
-    private store: Store<any>,
-    private http: HttpClient
-  ) {
-    const token = this.isAuthenticated();
-
-    if (token) {
-      setTimeout(() => {
-        this.store.dispatch({
-            type: AuthActionTypes.LoadToken,
-            payload: { token: token }
-          });
-      });
-    } else {
-      setTimeout(() => {
-        this.store.dispatch({
-            type: AuthActionTypes.Logout
-          });
-      });
-    }
-  }
+  constructor(private http: HttpClient) {}
 
   isAuthenticated(): string {
     return localStorage['usr'];
@@ -48,16 +26,10 @@ export class AuthService {
       password: pwd
     };
 
-    return new Observable((observer) => {
-      this.http.post<any>(`${BASE_URL}/login`, body).subscribe(
-        (usr: any) => {
-          localStorage['usr'] = usr.token;
-          observer.next(usr.token);
-        },
-        err => observer.error(err),
-        () => observer.complete()
-      );
-    });
+    return this.http.post<any>(`${BASE_URL}/login`, body).pipe(
+      map((usr: any) => usr.token),
+      tap(token => localStorage['usr'] = token)
+    );
   }
 
   logout() {
