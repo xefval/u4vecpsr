@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -13,11 +13,12 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import { DateInputComponent } from './date-input/date-input.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
 import { OrderByPipe } from './order-by/order-by.pipe';
+import { AuthorInputComponent } from './author-input/author-input.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     HttpClientModule
   ],
@@ -30,7 +31,8 @@ import { OrderByPipe } from './order-by/order-by.pipe';
     DlgConfirmComponent,
     CreateCourseComponent,
     DateInputComponent,
-    DurationInputComponent
+    DurationInputComponent,
+    AuthorInputComponent
   ],
   providers: [
   ],

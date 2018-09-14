@@ -20,7 +20,7 @@ import { AuthEffects } from './auth/auth.effects';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     AuthModule,

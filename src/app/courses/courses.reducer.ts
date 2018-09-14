@@ -9,7 +9,9 @@ export enum CoursesActionTypes {
   Search = '[Courses] Search',
   LoadNextPage = '[Courses] LoadNextPage',
   PageLoaded = '[Courses] PageLoaded',
-  PagesUpdated = '[Courses] PagesUpdated'
+  PagesUpdated = '[Courses] PagesUpdated',
+  LoadAuthors = '[Courses] LoadAuthors',
+  AuthorsUpdated = '[Courses] AuthorsUpdated',
 }
 
 export class Found implements Action {
@@ -60,6 +62,18 @@ export class PagesUpdated implements Action {
   constructor(public payload: any) {}
 }
 
+export class LoadAuthors implements Action {
+  readonly type = CoursesActionTypes.LoadAuthors;
+
+  constructor() {}
+}
+
+export class AuthorsUpdated implements Action {
+  readonly type = CoursesActionTypes.AuthorsUpdated;
+
+  constructor(public payload: any) {}
+}
+
 export type CoursesActionsUnion =
   | Found
   | Create
@@ -68,9 +82,12 @@ export type CoursesActionsUnion =
   | Search
   | LoadNextPage
   | PageLoaded
-  | PagesUpdated;
+  | PagesUpdated
+  | LoadAuthors
+  | AuthorsUpdated;
 
 export interface CoursesState {
+  authors: any[] | null;
   itemsPerPage: number;
   pageNum: number;
   foundItems: Course[] | null;
@@ -79,6 +96,7 @@ export interface CoursesState {
 }
 
 export const initialState: CoursesState = {
+  authors: null,
   itemsPerPage: 5,
   pageNum: 0,
   foundItems: null,
@@ -119,6 +137,12 @@ export function coursesReducer(state: CoursesState = initialState, action: Cours
       return {
         ...state,
         loadedItems: action.payload.data,
+      };
+
+    case CoursesActionTypes.AuthorsUpdated:
+      return {
+        ...state,
+        authors: action.payload.data,
       };
 
     default:

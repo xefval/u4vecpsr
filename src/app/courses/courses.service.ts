@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 const BASE_URL = 'http://localhost:3004/courses';
+const AUTHORS_BASE_URL = 'http://localhost:3004/authors';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,9 @@ export class CoursesService {
 
   put(course: Course): Observable<any> {
     return this.http.put<Course>(`${BASE_URL}/${course.id}`, course);
+  }
+
+  loadAuthors(): Observable<Course[]> {
+    return this.http.get<any[]>(`${AUTHORS_BASE_URL}`);
   }
 }

@@ -5,8 +5,7 @@
       <input 
         type="text"
         class="form-control search"
-        [(ngModel)]="searchString"
-        (ngModelChange)="findCourse($event)"
+        [formControl]="search"
         placeholder="Name, fragment or date"
         >
     </div>
@@ -40,7 +39,7 @@
     <button
       type="button"
       class="btn btn-outline-primary load-more w-100 mt-2 load-more"
-      *ngIf="(searchString.length < 3) && (coursesList$ | async)?.length > 0"
+      *ngIf="searchString && (searchString.length < 3) && (coursesList$ | async)?.length > 0"
       (click)="loadNextPage()"
       >Load more
     </button>

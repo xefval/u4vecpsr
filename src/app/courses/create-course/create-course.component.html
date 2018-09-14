@@ -1,18 +1,72 @@
 <div class="container">
-  <div class="form-group">
-    <label for="add-title">Title</label>
-    <input type="text" class="form-control" id="add-title" placeholder="Course title" [(ngModel)]="course.name">  
-  </div>
-  <div class="form-group">
-    <label for="add-description">Description</label>
-    <textarea class="form-control" id="add-description" rows="5" placeholder="Course description" [(ngModel)]="course.description"></textarea>
-  </div>
-  <div class="form-group">
-    <app-date-input></app-date-input>
-    <app-duration-input></app-duration-input>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-primary mr-2" (click)="saveCourse()">Save</button>
-    <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
-  </div>
+  <form [formGroup]="editForm" (ngSubmit)="saveCourse()">
+    <div class="form-group">
+      <input type="hidden" formControlName="id">
+      <label for="add-name">Name
+        <span class="text-danger" *ngIf="f.name.touched && f.name.errors">
+          <span *ngIf="f.name.errors.required">Required.</span>
+        </span>
+      </label>
+      <input type="text"
+        id="add-name" 
+        class="form-control"
+        formControlName="name"
+        placeholder="Course title">
+    </div>
+    <div class="form-group">
+      <label for="add-description">Description
+        <span class="text-danger" *ngIf="f.description.touched && f.description.errors">
+          <span *ngIf="f.description.errors.required">Required.</span>
+        </span>
+      </label>
+      <textarea
+        id="add-description"
+        class="form-control"
+        formControlName="description"
+        rows="5"
+        placeholder="Course description"
+        ></textarea>
+    </div>
+    <div class="form-group">
+      <div class="form-group">
+          <label for="add-date">Date
+            <span class="text-danger" *ngIf="f.date.errors">
+              <span *ngIf="f.date.errors.required">Required.</span>
+              <span *ngIf="f.date.errors.pattern">Wrong date format. Use dd/MM/yyyy.</span>
+            </span>
+          </label>
+          <app-date-input 
+            id="add-date"
+            formControlName="date"
+          ></app-date-input>
+        </div>
+        <div class="form-group">
+          <label for="add-length">Duration (min)
+            <span class="text-danger" *ngIf="f.length.errors">
+              <span *ngIf="f.length.errors.required">Required.</span>
+              <span *ngIf="f.length.errors.pattern">Wrong number format.</span>
+            </span>
+          </label>
+          <app-duration-input
+            id="add-length" 
+            formControlName="length"
+          ></app-duration-input> 
+        </div>
+        <div class="form-group">
+          <label for="add-authors">Author(s)
+            <span class="text-danger" *ngIf="f.authors.touched && f.authors.errors">
+              <span *ngIf="f.authors.errors.required">Required.</span>
+            </span>
+          </label>
+          <app-author-input
+            id="add-authors" 
+            formControlName="authors"
+          ></app-author-input> 
+        </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary mr-2" [disabled]="!editForm.valid">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
 </div>
